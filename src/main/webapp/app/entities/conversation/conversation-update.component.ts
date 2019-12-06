@@ -17,7 +17,8 @@ export class ConversationUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    idUsers: []
+    idUser1: [],
+    idUser2: []
   });
 
   constructor(protected conversationService: ConversationService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -32,7 +33,8 @@ export class ConversationUpdateComponent implements OnInit {
   updateForm(conversation: IConversation) {
     this.editForm.patchValue({
       id: conversation.id,
-      idUsers: conversation.idUsers
+      idUser1: conversation.idUser1,
+      idUser2: conversation.idUser2
     });
   }
 
@@ -54,7 +56,8 @@ export class ConversationUpdateComponent implements OnInit {
     return {
       ...new Conversation(),
       id: this.editForm.get(['id']).value,
-      idUsers: this.editForm.get(['idUsers']).value
+      idUser1: this.editForm.get(['idUser1']).value,
+      idUser2: this.editForm.get(['idUser2']).value
     };
   }
 

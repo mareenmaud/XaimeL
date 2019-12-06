@@ -3,11 +3,11 @@
     "fields": [
         {
             "fieldName": "idUserSender",
-            "fieldType": "Integer"
+            "fieldType": "String"
         },
         {
             "fieldName": "idUserRecipient",
-            "fieldType": "Integer"
+            "fieldType": "String"
         },
         {
             "fieldName": "contentMessage",

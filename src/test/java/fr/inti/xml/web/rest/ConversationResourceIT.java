@@ -36,8 +36,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = XmLApp.class)
 public class ConversationResourceIT {
 
-    private static final Integer DEFAULT_ID_USERS = 1;
-    private static final Integer UPDATED_ID_USERS = 2;
+    private static final String DEFAULT_ID_USER_1 = "AAAAAAAAAA";
+    private static final String UPDATED_ID_USER_1 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_ID_USER_2 = "AAAAAAAAAA";
+    private static final String UPDATED_ID_USER_2 = "BBBBBBBBBB";
 
     @Autowired
     private ConversationRepository conversationRepository;
@@ -86,7 +89,8 @@ public class ConversationResourceIT {
      */
     public static Conversation createEntity() {
         Conversation conversation = new Conversation()
-            .idUsers(DEFAULT_ID_USERS);
+            .idUser1(DEFAULT_ID_USER_1)
+            .idUser2(DEFAULT_ID_USER_2);
         return conversation;
     }
     /**
@@ -97,7 +101,8 @@ public class ConversationResourceIT {
      */
     public static Conversation createUpdatedEntity() {
         Conversation conversation = new Conversation()
-            .idUsers(UPDATED_ID_USERS);
+            .idUser1(UPDATED_ID_USER_1)
+            .idUser2(UPDATED_ID_USER_2);
         return conversation;
     }
 
@@ -121,7 +126,8 @@ public class ConversationResourceIT {
         List<Conversation> conversationList = conversationRepository.findAll();
         assertThat(conversationList).hasSize(databaseSizeBeforeCreate + 1);
         Conversation testConversation = conversationList.get(conversationList.size() - 1);
-        assertThat(testConversation.getIdUsers()).isEqualTo(DEFAULT_ID_USERS);
+        assertThat(testConversation.getIdUser1()).isEqualTo(DEFAULT_ID_USER_1);
+        assertThat(testConversation.getIdUser2()).isEqualTo(DEFAULT_ID_USER_2);
 
         // Validate the Conversation in Elasticsearch
         verify(mockConversationSearchRepository, times(1)).save(testConversation);
@@ -159,7 +165,8 @@ public class ConversationResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(conversation.getId())))
-            .andExpect(jsonPath("$.[*].idUsers").value(hasItem(DEFAULT_ID_USERS)));
+            .andExpect(jsonPath("$.[*].idUser1").value(hasItem(DEFAULT_ID_USER_1)))
+            .andExpect(jsonPath("$.[*].idUser2").value(hasItem(DEFAULT_ID_USER_2)));
     }
     
     @Test
@@ -172,7 +179,8 @@ public class ConversationResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(conversation.getId()))
-            .andExpect(jsonPath("$.idUsers").value(DEFAULT_ID_USERS));
+            .andExpect(jsonPath("$.idUser1").value(DEFAULT_ID_USER_1))
+            .andExpect(jsonPath("$.idUser2").value(DEFAULT_ID_USER_2));
     }
 
     @Test
@@ -192,7 +200,8 @@ public class ConversationResourceIT {
         // Update the conversation
         Conversation updatedConversation = conversationRepository.findById(conversation.getId()).get();
         updatedConversation
-            .idUsers(UPDATED_ID_USERS);
+            .idUser1(UPDATED_ID_USER_1)
+            .idUser2(UPDATED_ID_USER_2);
 
         restConversationMockMvc.perform(put("/api/conversations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -203,7 +212,8 @@ public class ConversationResourceIT {
         List<Conversation> conversationList = conversationRepository.findAll();
         assertThat(conversationList).hasSize(databaseSizeBeforeUpdate);
         Conversation testConversation = conversationList.get(conversationList.size() - 1);
-        assertThat(testConversation.getIdUsers()).isEqualTo(UPDATED_ID_USERS);
+        assertThat(testConversation.getIdUser1()).isEqualTo(UPDATED_ID_USER_1);
+        assertThat(testConversation.getIdUser2()).isEqualTo(UPDATED_ID_USER_2);
 
         // Validate the Conversation in Elasticsearch
         verify(mockConversationSearchRepository, times(1)).save(testConversation);
@@ -260,7 +270,8 @@ public class ConversationResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(conversation.getId())))
-            .andExpect(jsonPath("$.[*].idUsers").value(hasItem(DEFAULT_ID_USERS)));
+            .andExpect(jsonPath("$.[*].idUser1").value(hasItem(DEFAULT_ID_USER_1)))
+            .andExpect(jsonPath("$.[*].idUser2").value(hasItem(DEFAULT_ID_USER_2)));
     }
 
     @Test

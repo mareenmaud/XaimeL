@@ -6,7 +6,19 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "jungValues",
+            "fieldName": "jungValue1",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "jungValue2",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "jungValue3",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "jungValue4",
             "fieldType": "Double"
         }
     ],

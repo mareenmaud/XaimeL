@@ -1,6 +1,6 @@
 entity ITProfile {
 	job String,
-    favLanguages String,
+    favLanguage String,
     favOS String,
     gamer Boolean,
     geek Boolean,
@@ -9,19 +9,23 @@ entity ITProfile {
 
 entity PsychoProfile {
 	summaryProfile String,
-    jungValues Double
+    jungValue1 Double,
+    jungValue2 Double,
+    jungValue3 Double,
+    jungValue4 Double
 }
 
 entity Message {
-	idUserSender Integer,
-	idUserRecipient Integer,
+	idUserSender String,
+	idUserRecipient String,
 	contentMessage String,
 	dateMessage Instant,
 	readMessage Boolean
 }
 
 entity Conversation {
- 	idUsers Integer
+ 	idUser1 String,
+	idUser2 String
 }
 
 relationship OneToMany {

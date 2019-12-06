@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(PsychoProfileService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new PsychoProfile('ID', 'AAAAAAA', 0);
+      elemDefault = new PsychoProfile('ID', 'AAAAAAA', 0, 0, 0, 0);
     });
 
     describe('Service methods', () => {
@@ -57,7 +57,10 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             summaryProfile: 'BBBBBB',
-            jungValues: 1
+            jungValue1: 1,
+            jungValue2: 1,
+            jungValue3: 1,
+            jungValue4: 1
           },
           elemDefault
         );
@@ -76,7 +79,10 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             summaryProfile: 'BBBBBB',
-            jungValues: 1
+            jungValue1: 1,
+            jungValue2: 1,
+            jungValue3: 1,
+            jungValue4: 1
           },
           elemDefault
         );

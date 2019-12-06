@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(ConversationService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Conversation('ID', 0);
+      elemDefault = new Conversation('ID', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -56,7 +56,8 @@ describe('Service Tests', () => {
       it('should update a Conversation', () => {
         const returnedFromService = Object.assign(
           {
-            idUsers: 1
+            idUser1: 'BBBBBB',
+            idUser2: 'BBBBBB'
           },
           elemDefault
         );
@@ -74,7 +75,8 @@ describe('Service Tests', () => {
       it('should return a list of Conversation', () => {
         const returnedFromService = Object.assign(
           {
-            idUsers: 1
+            idUser1: 'BBBBBB',
+            idUser2: 'BBBBBB'
           },
           elemDefault
         );

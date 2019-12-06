@@ -2,8 +2,12 @@
     "name": "Conversation",
     "fields": [
         {
-            "fieldName": "idUsers",
-            "fieldType": "Integer"
+            "fieldName": "idUser1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "idUser2",
+            "fieldType": "String"
         }
     ],
     "relationships": [

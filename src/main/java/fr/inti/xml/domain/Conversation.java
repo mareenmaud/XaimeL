@@ -22,8 +22,11 @@ public class Conversation implements Serializable {
     @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private String id;
 
-    @Field("id_users")
-    private Integer idUsers;
+    @Field("id_user_1")
+    private String idUser1;
+
+    @Field("id_user_2")
+    private String idUser2;
 
     @DBRef
     @Field("messages")
@@ -38,17 +41,30 @@ public class Conversation implements Serializable {
         this.id = id;
     }
 
-    public Integer getIdUsers() {
-        return idUsers;
+    public String getIdUser1() {
+        return idUser1;
     }
 
-    public Conversation idUsers(Integer idUsers) {
-        this.idUsers = idUsers;
+    public Conversation idUser1(String idUser1) {
+        this.idUser1 = idUser1;
         return this;
     }
 
-    public void setIdUsers(Integer idUsers) {
-        this.idUsers = idUsers;
+    public void setIdUser1(String idUser1) {
+        this.idUser1 = idUser1;
+    }
+
+    public String getIdUser2() {
+        return idUser2;
+    }
+
+    public Conversation idUser2(String idUser2) {
+        this.idUser2 = idUser2;
+        return this;
+    }
+
+    public void setIdUser2(String idUser2) {
+        this.idUser2 = idUser2;
     }
 
     public Set<Message> getMessages() {
@@ -97,7 +113,8 @@ public class Conversation implements Serializable {
     public String toString() {
         return "Conversation{" +
             "id=" + getId() +
-            ", idUsers=" + getIdUsers() +
+            ", idUser1='" + getIdUser1() + "'" +
+            ", idUser2='" + getIdUser2() + "'" +
             "}";
     }
 }
