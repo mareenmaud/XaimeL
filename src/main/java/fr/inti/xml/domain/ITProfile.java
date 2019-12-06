@@ -22,8 +22,8 @@ public class ITProfile implements Serializable {
     @Field("job")
     private String job;
 
-    @Field("fav_languages")
-    private String favLanguages;
+    @Field("fav_language")
+    private String favLanguage;
 
     @Field("fav_os")
     private String favOS;
@@ -59,17 +59,17 @@ public class ITProfile implements Serializable {
         this.job = job;
     }
 
-    public String getFavLanguages() {
-        return favLanguages;
+    public String getFavLanguage() {
+        return favLanguage;
     }
 
-    public ITProfile favLanguages(String favLanguages) {
-        this.favLanguages = favLanguages;
+    public ITProfile favLanguage(String favLanguage) {
+        this.favLanguage = favLanguage;
         return this;
     }
 
-    public void setFavLanguages(String favLanguages) {
-        this.favLanguages = favLanguages;
+    public void setFavLanguage(String favLanguage) {
+        this.favLanguage = favLanguage;
     }
 
     public String getFavOS() {
@@ -146,7 +146,7 @@ public class ITProfile implements Serializable {
         return "ITProfile{" +
             "id=" + getId() +
             ", job='" + getJob() + "'" +
-            ", favLanguages='" + getFavLanguages() + "'" +
+            ", favLanguage='" + getFavLanguage() + "'" +
             ", favOS='" + getFavOS() + "'" +
             ", gamer='" + isGamer() + "'" +
             ", geek='" + isGeek() + "'" +

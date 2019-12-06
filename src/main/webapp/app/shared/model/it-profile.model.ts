@@ -1,7 +1,7 @@
 export interface IITProfile {
   id?: string;
   job?: string;
-  favLanguages?: string;
+  favLanguage?: string;
   favOS?: string;
   gamer?: boolean;
   geek?: boolean;
@@ -12,7 +12,7 @@ export class ITProfile implements IITProfile {
   constructor(
     public id?: string,
     public job?: string,
-    public favLanguages?: string,
+    public favLanguage?: string,
     public favOS?: string,
     public gamer?: boolean,
     public geek?: boolean,

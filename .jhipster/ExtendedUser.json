@@ -1,0 +1,89 @@
+{
+    "name": "ExtendedUser",
+    "fields": [
+        {
+            "fieldName": "birthDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "memberSince",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "locationLongitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "locationLatitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "gender",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "interest",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "note",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "hobbies",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "profilePhotoURL",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "iTProfile",
+            "otherEntityRelationshipName": "extendedUser",
+            "relationshipName": "iTProfile",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "psychoProfile",
+            "otherEntityRelationshipName": "extendedUser",
+            "relationshipName": "psychoProfile",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "extendedUser",
+            "relationshipName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipName": "extendedUser",
+            "otherEntityName": "extendedUser",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "extendedUser",
+            "otherEntityRelationshipName": "extendedUser",
+            "relationshipName": "matches"
+        }
+    ],
+    "changelogDate": "20191206150949",
+    "entityTableName": "extended_user",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

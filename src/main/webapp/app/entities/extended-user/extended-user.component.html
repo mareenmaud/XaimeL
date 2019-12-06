@@ -1,0 +1,111 @@
+<div>
+    <h2 id="page-heading">
+        <span>Extended Users</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-extended-user" [routerLink]="['/extended-user/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+            Create a new Extended User
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="alert alert-warning" *ngIf="extendedUsers?.length === 0">
+        <span>No extendedUsers found</span>
+    </div>
+    <div class="table-responsive" *ngIf="extendedUsers?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span>ID</span></th>
+            <th scope="col" ><span>Birth Date</span></th>
+            <th scope="col" ><span>Member Since</span></th>
+            <th scope="col" ><span>Location Longitude</span></th>
+            <th scope="col" ><span>Location Latitude</span></th>
+            <th scope="col" ><span>Gender</span></th>
+            <th scope="col" ><span>Interest</span></th>
+            <th scope="col" ><span>Note</span></th>
+            <th scope="col" ><span>Hobbies</span></th>
+            <th scope="col" ><span>Profile Photo URL</span></th>
+            <th scope="col" ><span>I T Profile</span></th>
+            <th scope="col" ><span>Psycho Profile</span></th>
+            <th scope="col" ><span>User</span></th>
+            <th scope="col" ><span>Extended User</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let extendedUser of extendedUsers ;trackBy: trackId">
+                <td><a [routerLink]="['/extended-user', extendedUser.id, 'view' ]">{{extendedUser.id}}</a></td>
+                <td>{{extendedUser.birthDate | date:'medium'}}</td>
+                <td>{{extendedUser.memberSince | date:'medium'}}</td>
+                <td>{{extendedUser.locationLongitude}}</td>
+                <td>{{extendedUser.locationLatitude}}</td>
+                <td>{{extendedUser.gender}}</td>
+                <td>{{extendedUser.interest}}</td>
+                <td>{{extendedUser.note}}</td>
+                <td>{{extendedUser.hobbies}}</td>
+                <td>{{extendedUser.profilePhotoURL}}</td>
+                <td>
+                    <div *ngIf="extendedUser.iTProfile">
+                        <a [routerLink]="['/it-profile', extendedUser.iTProfile?.id, 'view' ]" >{{extendedUser.iTProfile?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="extendedUser.psychoProfile">
+                        <a [routerLink]="['/psycho-profile', extendedUser.psychoProfile?.id, 'view' ]" >{{extendedUser.psychoProfile?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    {{extendedUser.user?.id}}
+                </td>
+                <td>
+                    <div *ngIf="extendedUser.extendedUser">
+                        <a [routerLink]="['/extended-user', extendedUser.extendedUser?.id, 'view' ]" >{{extendedUser.extendedUser?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/extended-user', extendedUser.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/extended-user', extendedUser.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/extended-user', { outlets: { popup: extendedUser.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -19,6 +19,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'conversation',
         loadChildren: () => import('./conversation/conversation.module').then(m => m.XmLConversationModule)
+      },
+      {
+        path: 'extended-user',
+        loadChildren: () => import('./extended-user/extended-user.module').then(m => m.XmLExtendedUserModule)
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

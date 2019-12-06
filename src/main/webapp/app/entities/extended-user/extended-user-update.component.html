@@ -1,0 +1,99 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-extended-user-heading">Create or edit a Extended User</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_birthDate">Birth Date</label>
+                    <div class="d-flex">
+                        <input id="field_birthDate" type="datetime-local" class="form-control" name="birthDate" formControlName="birthDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_memberSince">Member Since</label>
+                    <div class="d-flex">
+                        <input id="field_memberSince" type="datetime-local" class="form-control" name="memberSince" formControlName="memberSince" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_locationLongitude">Location Longitude</label>
+                    <input type="number" class="form-control" name="locationLongitude" id="field_locationLongitude"
+                           formControlName="locationLongitude"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_locationLatitude">Location Latitude</label>
+                    <input type="number" class="form-control" name="locationLatitude" id="field_locationLatitude"
+                           formControlName="locationLatitude"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gender">Gender</label>
+                    <input type="text" class="form-control" name="gender" id="field_gender"
+                           formControlName="gender"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_interest">Interest</label>
+                    <input type="text" class="form-control" name="interest" id="field_interest"
+                           formControlName="interest"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_note">Note</label>
+                    <input type="number" class="form-control" name="note" id="field_note"
+                           formControlName="note"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_hobbies">Hobbies</label>
+                    <input type="text" class="form-control" name="hobbies" id="field_hobbies"
+                           formControlName="hobbies"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_profilePhotoURL">Profile Photo URL</label>
+                    <input type="text" class="form-control" name="profilePhotoURL" id="field_profilePhotoURL"
+                           formControlName="profilePhotoURL"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_iTProfile">I T Profile</label>
+                    <select class="form-control" id="field_iTProfile" name="iTProfile" formControlName="iTProfile">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="iTProfileOption.id === editForm.get('iTProfile').value?.id ? editForm.get('iTProfile').value : iTProfileOption" *ngFor="let iTProfileOption of itprofiles; trackBy: trackITProfileById">{{iTProfileOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_psychoProfile">Psycho Profile</label>
+                    <select class="form-control" id="field_psychoProfile" name="psychoProfile" formControlName="psychoProfile">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="psychoProfileOption.id === editForm.get('psychoProfile').value?.id ? editForm.get('psychoProfile').value : psychoProfileOption" *ngFor="let psychoProfileOption of psychoprofiles; trackBy: trackPsychoProfileById">{{psychoProfileOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === editForm.get('user').value?.id ? editForm.get('user').value : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_extendedUser">Extended User</label>
+                    <select class="form-control" id="field_extendedUser" name="extendedUser" formControlName="extendedUser">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="extendedUserOption.id === editForm.get('extendedUser').value?.id ? editForm.get('extendedUser').value : extendedUserOption" *ngFor="let extendedUserOption of extendedusers; trackBy: trackExtendedUserById">{{extendedUserOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

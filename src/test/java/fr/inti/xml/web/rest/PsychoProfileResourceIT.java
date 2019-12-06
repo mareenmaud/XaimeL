@@ -39,8 +39,17 @@ public class PsychoProfileResourceIT {
     private static final String DEFAULT_SUMMARY_PROFILE = "AAAAAAAAAA";
     private static final String UPDATED_SUMMARY_PROFILE = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_JUNG_VALUES = 1D;
-    private static final Double UPDATED_JUNG_VALUES = 2D;
+    private static final Double DEFAULT_JUNG_VALUE_1 = 1D;
+    private static final Double UPDATED_JUNG_VALUE_1 = 2D;
+
+    private static final Double DEFAULT_JUNG_VALUE_2 = 1D;
+    private static final Double UPDATED_JUNG_VALUE_2 = 2D;
+
+    private static final Double DEFAULT_JUNG_VALUE_3 = 1D;
+    private static final Double UPDATED_JUNG_VALUE_3 = 2D;
+
+    private static final Double DEFAULT_JUNG_VALUE_4 = 1D;
+    private static final Double UPDATED_JUNG_VALUE_4 = 2D;
 
     @Autowired
     private PsychoProfileRepository psychoProfileRepository;
@@ -90,7 +99,10 @@ public class PsychoProfileResourceIT {
     public static PsychoProfile createEntity() {
         PsychoProfile psychoProfile = new PsychoProfile()
             .summaryProfile(DEFAULT_SUMMARY_PROFILE)
-            .jungValues(DEFAULT_JUNG_VALUES);
+            .jungValue1(DEFAULT_JUNG_VALUE_1)
+            .jungValue2(DEFAULT_JUNG_VALUE_2)
+            .jungValue3(DEFAULT_JUNG_VALUE_3)
+            .jungValue4(DEFAULT_JUNG_VALUE_4);
         return psychoProfile;
     }
     /**
@@ -102,7 +114,10 @@ public class PsychoProfileResourceIT {
     public static PsychoProfile createUpdatedEntity() {
         PsychoProfile psychoProfile = new PsychoProfile()
             .summaryProfile(UPDATED_SUMMARY_PROFILE)
-            .jungValues(UPDATED_JUNG_VALUES);
+            .jungValue1(UPDATED_JUNG_VALUE_1)
+            .jungValue2(UPDATED_JUNG_VALUE_2)
+            .jungValue3(UPDATED_JUNG_VALUE_3)
+            .jungValue4(UPDATED_JUNG_VALUE_4);
         return psychoProfile;
     }
 
@@ -127,7 +142,10 @@ public class PsychoProfileResourceIT {
         assertThat(psychoProfileList).hasSize(databaseSizeBeforeCreate + 1);
         PsychoProfile testPsychoProfile = psychoProfileList.get(psychoProfileList.size() - 1);
         assertThat(testPsychoProfile.getSummaryProfile()).isEqualTo(DEFAULT_SUMMARY_PROFILE);
-        assertThat(testPsychoProfile.getJungValues()).isEqualTo(DEFAULT_JUNG_VALUES);
+        assertThat(testPsychoProfile.getJungValue1()).isEqualTo(DEFAULT_JUNG_VALUE_1);
+        assertThat(testPsychoProfile.getJungValue2()).isEqualTo(DEFAULT_JUNG_VALUE_2);
+        assertThat(testPsychoProfile.getJungValue3()).isEqualTo(DEFAULT_JUNG_VALUE_3);
+        assertThat(testPsychoProfile.getJungValue4()).isEqualTo(DEFAULT_JUNG_VALUE_4);
 
         // Validate the PsychoProfile in Elasticsearch
         verify(mockPsychoProfileSearchRepository, times(1)).save(testPsychoProfile);
@@ -166,7 +184,10 @@ public class PsychoProfileResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(psychoProfile.getId())))
             .andExpect(jsonPath("$.[*].summaryProfile").value(hasItem(DEFAULT_SUMMARY_PROFILE)))
-            .andExpect(jsonPath("$.[*].jungValues").value(hasItem(DEFAULT_JUNG_VALUES.doubleValue())));
+            .andExpect(jsonPath("$.[*].jungValue1").value(hasItem(DEFAULT_JUNG_VALUE_1.doubleValue())))
+            .andExpect(jsonPath("$.[*].jungValue2").value(hasItem(DEFAULT_JUNG_VALUE_2.doubleValue())))
+            .andExpect(jsonPath("$.[*].jungValue3").value(hasItem(DEFAULT_JUNG_VALUE_3.doubleValue())))
+            .andExpect(jsonPath("$.[*].jungValue4").value(hasItem(DEFAULT_JUNG_VALUE_4.doubleValue())));
     }
     
     @Test
@@ -180,7 +201,10 @@ public class PsychoProfileResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(psychoProfile.getId()))
             .andExpect(jsonPath("$.summaryProfile").value(DEFAULT_SUMMARY_PROFILE))
-            .andExpect(jsonPath("$.jungValues").value(DEFAULT_JUNG_VALUES.doubleValue()));
+            .andExpect(jsonPath("$.jungValue1").value(DEFAULT_JUNG_VALUE_1.doubleValue()))
+            .andExpect(jsonPath("$.jungValue2").value(DEFAULT_JUNG_VALUE_2.doubleValue()))
+            .andExpect(jsonPath("$.jungValue3").value(DEFAULT_JUNG_VALUE_3.doubleValue()))
+            .andExpect(jsonPath("$.jungValue4").value(DEFAULT_JUNG_VALUE_4.doubleValue()));
     }
 
     @Test
@@ -201,7 +225,10 @@ public class PsychoProfileResourceIT {
         PsychoProfile updatedPsychoProfile = psychoProfileRepository.findById(psychoProfile.getId()).get();
         updatedPsychoProfile
             .summaryProfile(UPDATED_SUMMARY_PROFILE)
-            .jungValues(UPDATED_JUNG_VALUES);
+            .jungValue1(UPDATED_JUNG_VALUE_1)
+            .jungValue2(UPDATED_JUNG_VALUE_2)
+            .jungValue3(UPDATED_JUNG_VALUE_3)
+            .jungValue4(UPDATED_JUNG_VALUE_4);
 
         restPsychoProfileMockMvc.perform(put("/api/psycho-profiles")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -213,7 +240,10 @@ public class PsychoProfileResourceIT {
         assertThat(psychoProfileList).hasSize(databaseSizeBeforeUpdate);
         PsychoProfile testPsychoProfile = psychoProfileList.get(psychoProfileList.size() - 1);
         assertThat(testPsychoProfile.getSummaryProfile()).isEqualTo(UPDATED_SUMMARY_PROFILE);
-        assertThat(testPsychoProfile.getJungValues()).isEqualTo(UPDATED_JUNG_VALUES);
+        assertThat(testPsychoProfile.getJungValue1()).isEqualTo(UPDATED_JUNG_VALUE_1);
+        assertThat(testPsychoProfile.getJungValue2()).isEqualTo(UPDATED_JUNG_VALUE_2);
+        assertThat(testPsychoProfile.getJungValue3()).isEqualTo(UPDATED_JUNG_VALUE_3);
+        assertThat(testPsychoProfile.getJungValue4()).isEqualTo(UPDATED_JUNG_VALUE_4);
 
         // Validate the PsychoProfile in Elasticsearch
         verify(mockPsychoProfileSearchRepository, times(1)).save(testPsychoProfile);
@@ -271,7 +301,10 @@ public class PsychoProfileResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(psychoProfile.getId())))
             .andExpect(jsonPath("$.[*].summaryProfile").value(hasItem(DEFAULT_SUMMARY_PROFILE)))
-            .andExpect(jsonPath("$.[*].jungValues").value(hasItem(DEFAULT_JUNG_VALUES.doubleValue())));
+            .andExpect(jsonPath("$.[*].jungValue1").value(hasItem(DEFAULT_JUNG_VALUE_1.doubleValue())))
+            .andExpect(jsonPath("$.[*].jungValue2").value(hasItem(DEFAULT_JUNG_VALUE_2.doubleValue())))
+            .andExpect(jsonPath("$.[*].jungValue3").value(hasItem(DEFAULT_JUNG_VALUE_3.doubleValue())))
+            .andExpect(jsonPath("$.[*].jungValue4").value(hasItem(DEFAULT_JUNG_VALUE_4.doubleValue())));
     }
 
     @Test

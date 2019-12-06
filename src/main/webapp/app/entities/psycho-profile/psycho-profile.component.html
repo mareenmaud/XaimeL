@@ -35,7 +35,10 @@
             <tr>
             <th scope="col" ><span>ID</span></th>
             <th scope="col" ><span>Summary Profile</span></th>
-            <th scope="col" ><span>Jung Values</span></th>
+            <th scope="col" ><span>Jung Value 1</span></th>
+            <th scope="col" ><span>Jung Value 2</span></th>
+            <th scope="col" ><span>Jung Value 3</span></th>
+            <th scope="col" ><span>Jung Value 4</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -43,7 +46,10 @@
             <tr *ngFor="let psychoProfile of psychoProfiles ;trackBy: trackId">
                 <td><a [routerLink]="['/psycho-profile', psychoProfile.id, 'view' ]">{{psychoProfile.id}}</a></td>
                 <td>{{psychoProfile.summaryProfile}}</td>
-                <td>{{psychoProfile.jungValues}}</td>
+                <td>{{psychoProfile.jungValue1}}</td>
+                <td>{{psychoProfile.jungValue2}}</td>
+                <td>{{psychoProfile.jungValue3}}</td>
+                <td>{{psychoProfile.jungValue4}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

@@ -1,0 +1,81 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="extendedUser">
+            <h2><span>Extended User</span> {{extendedUser.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Birth Date</span></dt>
+                <dd>
+                    <span>{{extendedUser.birthDate}}</span>
+                </dd>
+                <dt><span>Member Since</span></dt>
+                <dd>
+                    <span>{{extendedUser.memberSince}}</span>
+                </dd>
+                <dt><span>Location Longitude</span></dt>
+                <dd>
+                    <span>{{extendedUser.locationLongitude}}</span>
+                </dd>
+                <dt><span>Location Latitude</span></dt>
+                <dd>
+                    <span>{{extendedUser.locationLatitude}}</span>
+                </dd>
+                <dt><span>Gender</span></dt>
+                <dd>
+                    <span>{{extendedUser.gender}}</span>
+                </dd>
+                <dt><span>Interest</span></dt>
+                <dd>
+                    <span>{{extendedUser.interest}}</span>
+                </dd>
+                <dt><span>Note</span></dt>
+                <dd>
+                    <span>{{extendedUser.note}}</span>
+                </dd>
+                <dt><span>Hobbies</span></dt>
+                <dd>
+                    <span>{{extendedUser.hobbies}}</span>
+                </dd>
+                <dt><span>Profile Photo URL</span></dt>
+                <dd>
+                    <span>{{extendedUser.profilePhotoURL}}</span>
+                </dd>
+                <dt><span>I T Profile</span></dt>
+                <dd>
+                    <div *ngIf="extendedUser.iTProfile">
+                        <a [routerLink]="['/it-profile', extendedUser.iTProfile?.id, 'view']">{{extendedUser.iTProfile?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Psycho Profile</span></dt>
+                <dd>
+                    <div *ngIf="extendedUser.psychoProfile">
+                        <a [routerLink]="['/psycho-profile', extendedUser.psychoProfile?.id, 'view']">{{extendedUser.psychoProfile?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{extendedUser.user?.id}}
+                </dd>
+                <dt><span>Extended User</span></dt>
+                <dd>
+                    <div *ngIf="extendedUser.extendedUser">
+                        <a [routerLink]="['/extended-user', extendedUser.extendedUser?.id, 'view']">{{extendedUser.extendedUser?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/extended-user', extendedUser.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

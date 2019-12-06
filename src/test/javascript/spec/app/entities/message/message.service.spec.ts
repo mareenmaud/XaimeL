@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Message('ID', 0, 0, 'AAAAAAA', currentDate, false);
+      elemDefault = new Message('ID', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', currentDate, false);
     });
 
     describe('Service methods', () => {
@@ -71,8 +71,8 @@ describe('Service Tests', () => {
       it('should update a Message', () => {
         const returnedFromService = Object.assign(
           {
-            idUserSender: 1,
-            idUserRecipient: 1,
+            idUserSender: 'BBBBBB',
+            idUserRecipient: 'BBBBBB',
             contentMessage: 'BBBBBB',
             dateMessage: currentDate.format(DATE_TIME_FORMAT),
             readMessage: true
@@ -98,8 +98,8 @@ describe('Service Tests', () => {
       it('should return a list of Message', () => {
         const returnedFromService = Object.assign(
           {
-            idUserSender: 1,
-            idUserRecipient: 1,
+            idUserSender: 'BBBBBB',
+            idUserRecipient: 'BBBBBB',
             contentMessage: 'BBBBBB',
             dateMessage: currentDate.format(DATE_TIME_FORMAT),
             readMessage: true

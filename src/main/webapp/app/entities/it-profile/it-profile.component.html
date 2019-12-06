@@ -35,7 +35,7 @@
             <tr>
             <th scope="col" ><span>ID</span></th>
             <th scope="col" ><span>Job</span></th>
-            <th scope="col" ><span>Fav Languages</span></th>
+            <th scope="col" ><span>Fav Language</span></th>
             <th scope="col" ><span>Fav OS</span></th>
             <th scope="col" ><span>Gamer</span></th>
             <th scope="col" ><span>Geek</span></th>
@@ -47,7 +47,7 @@
             <tr *ngFor="let iTProfile of iTProfiles ;trackBy: trackId">
                 <td><a [routerLink]="['/it-profile', iTProfile.id, 'view' ]">{{iTProfile.id}}</a></td>
                 <td>{{iTProfile.job}}</td>
-                <td>{{iTProfile.favLanguages}}</td>
+                <td>{{iTProfile.favLanguage}}</td>
                 <td>{{iTProfile.favOS}}</td>
                 <td>{{iTProfile.gamer}}</td>
                 <td>{{iTProfile.geek}}</td>
