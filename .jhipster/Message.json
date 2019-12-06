@@ -1,0 +1,43 @@
+{
+    "name": "Message",
+    "fields": [
+        {
+            "fieldName": "idUserSender",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "idUserRecipient",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "contentMessage",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateMessage",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "readMessage",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "conversation",
+            "otherEntityName": "conversation",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20191206130728",
+    "entityTableName": "message",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

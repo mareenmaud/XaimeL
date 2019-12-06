@@ -1,0 +1,40 @@
+{
+    "name": "ITProfile",
+    "fields": [
+        {
+            "fieldName": "job",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "favLanguages",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "favOS",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "gamer",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "geek",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "otaku",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20191206130726",
+    "entityTableName": "it_profile",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

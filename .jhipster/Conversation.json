@@ -1,0 +1,27 @@
+{
+    "name": "Conversation",
+    "fields": [
+        {
+            "fieldName": "idUsers",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "message",
+            "otherEntityRelationshipName": "conversation",
+            "relationshipName": "messages"
+        }
+    ],
+    "changelogDate": "20191206130729",
+    "entityTableName": "conversation",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

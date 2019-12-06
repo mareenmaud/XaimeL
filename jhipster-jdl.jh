@@ -1,0 +1,29 @@
+entity ITProfile {
+	job String,
+    favLanguages String,
+    favOS String,
+    gamer Boolean,
+    geek Boolean,
+    otaku Boolean
+}
+
+entity PsychoProfile {
+	summaryProfile String,
+    jungValues Double
+}
+
+entity Message {
+	idUserSender Integer,
+	idUserRecipient Integer,
+	contentMessage String,
+	dateMessage Instant,
+	readMessage Boolean
+}
+
+entity Conversation {
+ 	idUsers Integer
+}
+
+relationship OneToMany {
+	Conversation{messages} to Message
+}

@@ -1,0 +1,24 @@
+{
+    "name": "PsychoProfile",
+    "fields": [
+        {
+            "fieldName": "summaryProfile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "jungValues",
+            "fieldType": "Double"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20191206130727",
+    "entityTableName": "psycho_profile",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

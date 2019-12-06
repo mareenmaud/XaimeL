@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="iTProfile">
+            <h2><span>IT Profile</span> {{iTProfile.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Job</span></dt>
+                <dd>
+                    <span>{{iTProfile.job}}</span>
+                </dd>
+                <dt><span>Fav Languages</span></dt>
+                <dd>
+                    <span>{{iTProfile.favLanguages}}</span>
+                </dd>
+                <dt><span>Fav OS</span></dt>
+                <dd>
+                    <span>{{iTProfile.favOS}}</span>
+                </dd>
+                <dt><span>Gamer</span></dt>
+                <dd>
+                    <span>{{iTProfile.gamer}}</span>
+                </dd>
+                <dt><span>Geek</span></dt>
+                <dd>
+                    <span>{{iTProfile.geek}}</span>
+                </dd>
+                <dt><span>Otaku</span></dt>
+                <dd>
+                    <span>{{iTProfile.otaku}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/it-profile', iTProfile.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

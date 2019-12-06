@@ -1,0 +1,83 @@
+<div>
+    <h2 id="page-heading">
+        <span>IT Profiles</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-it-profile" [routerLink]="['/it-profile/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+            Create a new IT Profile
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="alert alert-warning" *ngIf="iTProfiles?.length === 0">
+        <span>No iTProfiles found</span>
+    </div>
+    <div class="table-responsive" *ngIf="iTProfiles?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span>ID</span></th>
+            <th scope="col" ><span>Job</span></th>
+            <th scope="col" ><span>Fav Languages</span></th>
+            <th scope="col" ><span>Fav OS</span></th>
+            <th scope="col" ><span>Gamer</span></th>
+            <th scope="col" ><span>Geek</span></th>
+            <th scope="col" ><span>Otaku</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let iTProfile of iTProfiles ;trackBy: trackId">
+                <td><a [routerLink]="['/it-profile', iTProfile.id, 'view' ]">{{iTProfile.id}}</a></td>
+                <td>{{iTProfile.job}}</td>
+                <td>{{iTProfile.favLanguages}}</td>
+                <td>{{iTProfile.favOS}}</td>
+                <td>{{iTProfile.gamer}}</td>
+                <td>{{iTProfile.geek}}</td>
+                <td>{{iTProfile.otaku}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/it-profile', iTProfile.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/it-profile', iTProfile.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/it-profile', { outlets: { popup: iTProfile.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
