@@ -13,6 +13,19 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
+import { PageAccueilComponent } from './page-accueil/page-accueil.component';
+import { PageConnexionComponent } from './page-connexion/page-connexion.component';
+import { PageConqueteComponent } from './page-conquete/page-conquete.component';
+import { PageInscriptionComponent } from './page-inscription/page-inscription.component';
+import { PageInvitationsComponent } from './page-invitations/page-invitations.component';
+import { PageMatchsEnCoursComponent } from './page-matchs-en-cours/page-matchs-en-cours.component';
+import { PageMessagesComponent } from './page-messages/page-messages.component';
+import { PageParametresComponent } from './page-parametres/page-parametres.component';
+import { PagePresComponent } from './page-pres/page-pres.component';
+import { PageProfilComponent } from './page-profil/page-profil.component';
+import { PageProfilClientComponent } from './page-profil-client/page-profil-client.component';
+import { PageReglementComponent } from './page-reglement/page-reglement.component';
+import { StatsComponent } from './stats/stats.component';
 
 @NgModule({
   imports: [
@@ -24,7 +37,26 @@ import { ErrorComponent } from './layouts/error/error.component';
     XmLEntityModule,
     XmLAppRoutingModule
   ],
-  declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
+  declarations: [
+    JhiMainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    FooterComponent,
+    PageAccueilComponent,
+    PageConnexionComponent,
+    PageConqueteComponent,
+    PageInscriptionComponent,
+    PageInvitationsComponent,
+    PageMatchsEnCoursComponent,
+    PageMessagesComponent,
+    PageParametresComponent,
+    PagePresComponent,
+    PageProfilComponent,
+    PageProfilClientComponent,
+    PageReglementComponent,
+    StatsComponent
+  ],
   bootstrap: [JhiMainComponent]
 })
 export class XmLAppModule {}
