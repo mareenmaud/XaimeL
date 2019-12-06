@@ -38,11 +38,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = XmLApp.class)
 public class MessageResourceIT {
 
-    private static final Integer DEFAULT_ID_USER_SENDER = 1;
-    private static final Integer UPDATED_ID_USER_SENDER = 2;
+    private static final String DEFAULT_ID_USER_SENDER = "AAAAAAAAAA";
+    private static final String UPDATED_ID_USER_SENDER = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_ID_USER_RECIPIENT = 1;
-    private static final Integer UPDATED_ID_USER_RECIPIENT = 2;
+    private static final String DEFAULT_ID_USER_RECIPIENT = "AAAAAAAAAA";
+    private static final String UPDATED_ID_USER_RECIPIENT = "BBBBBBBBBB";
 
     private static final String DEFAULT_CONTENT_MESSAGE = "AAAAAAAAAA";
     private static final String UPDATED_CONTENT_MESSAGE = "BBBBBBBBBB";

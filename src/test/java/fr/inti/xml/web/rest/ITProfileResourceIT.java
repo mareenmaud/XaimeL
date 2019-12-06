@@ -39,8 +39,8 @@ public class ITProfileResourceIT {
     private static final String DEFAULT_JOB = "AAAAAAAAAA";
     private static final String UPDATED_JOB = "BBBBBBBBBB";
 
-    private static final String DEFAULT_FAV_LANGUAGES = "AAAAAAAAAA";
-    private static final String UPDATED_FAV_LANGUAGES = "BBBBBBBBBB";
+    private static final String DEFAULT_FAV_LANGUAGE = "AAAAAAAAAA";
+    private static final String UPDATED_FAV_LANGUAGE = "BBBBBBBBBB";
 
     private static final String DEFAULT_FAV_OS = "AAAAAAAAAA";
     private static final String UPDATED_FAV_OS = "BBBBBBBBBB";
@@ -102,7 +102,7 @@ public class ITProfileResourceIT {
     public static ITProfile createEntity() {
         ITProfile iTProfile = new ITProfile()
             .job(DEFAULT_JOB)
-            .favLanguages(DEFAULT_FAV_LANGUAGES)
+            .favLanguage(DEFAULT_FAV_LANGUAGE)
             .favOS(DEFAULT_FAV_OS)
             .gamer(DEFAULT_GAMER)
             .geek(DEFAULT_GEEK)
@@ -118,7 +118,7 @@ public class ITProfileResourceIT {
     public static ITProfile createUpdatedEntity() {
         ITProfile iTProfile = new ITProfile()
             .job(UPDATED_JOB)
-            .favLanguages(UPDATED_FAV_LANGUAGES)
+            .favLanguage(UPDATED_FAV_LANGUAGE)
             .favOS(UPDATED_FAV_OS)
             .gamer(UPDATED_GAMER)
             .geek(UPDATED_GEEK)
@@ -147,7 +147,7 @@ public class ITProfileResourceIT {
         assertThat(iTProfileList).hasSize(databaseSizeBeforeCreate + 1);
         ITProfile testITProfile = iTProfileList.get(iTProfileList.size() - 1);
         assertThat(testITProfile.getJob()).isEqualTo(DEFAULT_JOB);
-        assertThat(testITProfile.getFavLanguages()).isEqualTo(DEFAULT_FAV_LANGUAGES);
+        assertThat(testITProfile.getFavLanguage()).isEqualTo(DEFAULT_FAV_LANGUAGE);
         assertThat(testITProfile.getFavOS()).isEqualTo(DEFAULT_FAV_OS);
         assertThat(testITProfile.isGamer()).isEqualTo(DEFAULT_GAMER);
         assertThat(testITProfile.isGeek()).isEqualTo(DEFAULT_GEEK);
@@ -190,7 +190,7 @@ public class ITProfileResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(iTProfile.getId())))
             .andExpect(jsonPath("$.[*].job").value(hasItem(DEFAULT_JOB)))
-            .andExpect(jsonPath("$.[*].favLanguages").value(hasItem(DEFAULT_FAV_LANGUAGES)))
+            .andExpect(jsonPath("$.[*].favLanguage").value(hasItem(DEFAULT_FAV_LANGUAGE)))
             .andExpect(jsonPath("$.[*].favOS").value(hasItem(DEFAULT_FAV_OS)))
             .andExpect(jsonPath("$.[*].gamer").value(hasItem(DEFAULT_GAMER.booleanValue())))
             .andExpect(jsonPath("$.[*].geek").value(hasItem(DEFAULT_GEEK.booleanValue())))
@@ -208,7 +208,7 @@ public class ITProfileResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(iTProfile.getId()))
             .andExpect(jsonPath("$.job").value(DEFAULT_JOB))
-            .andExpect(jsonPath("$.favLanguages").value(DEFAULT_FAV_LANGUAGES))
+            .andExpect(jsonPath("$.favLanguage").value(DEFAULT_FAV_LANGUAGE))
             .andExpect(jsonPath("$.favOS").value(DEFAULT_FAV_OS))
             .andExpect(jsonPath("$.gamer").value(DEFAULT_GAMER.booleanValue()))
             .andExpect(jsonPath("$.geek").value(DEFAULT_GEEK.booleanValue()))
@@ -233,7 +233,7 @@ public class ITProfileResourceIT {
         ITProfile updatedITProfile = iTProfileRepository.findById(iTProfile.getId()).get();
         updatedITProfile
             .job(UPDATED_JOB)
-            .favLanguages(UPDATED_FAV_LANGUAGES)
+            .favLanguage(UPDATED_FAV_LANGUAGE)
             .favOS(UPDATED_FAV_OS)
             .gamer(UPDATED_GAMER)
             .geek(UPDATED_GEEK)
@@ -249,7 +249,7 @@ public class ITProfileResourceIT {
         assertThat(iTProfileList).hasSize(databaseSizeBeforeUpdate);
         ITProfile testITProfile = iTProfileList.get(iTProfileList.size() - 1);
         assertThat(testITProfile.getJob()).isEqualTo(UPDATED_JOB);
-        assertThat(testITProfile.getFavLanguages()).isEqualTo(UPDATED_FAV_LANGUAGES);
+        assertThat(testITProfile.getFavLanguage()).isEqualTo(UPDATED_FAV_LANGUAGE);
         assertThat(testITProfile.getFavOS()).isEqualTo(UPDATED_FAV_OS);
         assertThat(testITProfile.isGamer()).isEqualTo(UPDATED_GAMER);
         assertThat(testITProfile.isGeek()).isEqualTo(UPDATED_GEEK);
@@ -311,7 +311,7 @@ public class ITProfileResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(iTProfile.getId())))
             .andExpect(jsonPath("$.[*].job").value(hasItem(DEFAULT_JOB)))
-            .andExpect(jsonPath("$.[*].favLanguages").value(hasItem(DEFAULT_FAV_LANGUAGES)))
+            .andExpect(jsonPath("$.[*].favLanguage").value(hasItem(DEFAULT_FAV_LANGUAGE)))
             .andExpect(jsonPath("$.[*].favOS").value(hasItem(DEFAULT_FAV_OS)))
             .andExpect(jsonPath("$.[*].gamer").value(hasItem(DEFAULT_GAMER.booleanValue())))
             .andExpect(jsonPath("$.[*].geek").value(hasItem(DEFAULT_GEEK.booleanValue())))

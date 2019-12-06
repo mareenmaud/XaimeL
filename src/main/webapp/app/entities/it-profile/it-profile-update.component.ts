@@ -18,7 +18,7 @@ export class ITProfileUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     job: [],
-    favLanguages: [],
+    favLanguage: [],
     favOS: [],
     gamer: [],
     geek: [],
@@ -38,7 +38,7 @@ export class ITProfileUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: iTProfile.id,
       job: iTProfile.job,
-      favLanguages: iTProfile.favLanguages,
+      favLanguage: iTProfile.favLanguage,
       favOS: iTProfile.favOS,
       gamer: iTProfile.gamer,
       geek: iTProfile.geek,
@@ -65,7 +65,7 @@ export class ITProfileUpdateComponent implements OnInit {
       ...new ITProfile(),
       id: this.editForm.get(['id']).value,
       job: this.editForm.get(['job']).value,
-      favLanguages: this.editForm.get(['favLanguages']).value,
+      favLanguage: this.editForm.get(['favLanguage']).value,
       favOS: this.editForm.get(['favOS']).value,
       gamer: this.editForm.get(['gamer']).value,
       geek: this.editForm.get(['geek']).value,

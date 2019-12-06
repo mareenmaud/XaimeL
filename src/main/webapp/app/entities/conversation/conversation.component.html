@@ -34,14 +34,16 @@
             <thead>
             <tr>
             <th scope="col" ><span>ID</span></th>
-            <th scope="col" ><span>Id Users</span></th>
+            <th scope="col" ><span>Id User 1</span></th>
+            <th scope="col" ><span>Id User 2</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let conversation of conversations ;trackBy: trackId">
                 <td><a [routerLink]="['/conversation', conversation.id, 'view' ]">{{conversation.id}}</a></td>
-                <td>{{conversation.idUsers}}</td>
+                <td>{{conversation.idUser1}}</td>
+                <td>{{conversation.idUser2}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

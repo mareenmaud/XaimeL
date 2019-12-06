@@ -23,10 +23,10 @@ public class Message implements Serializable {
     private String id;
 
     @Field("id_user_sender")
-    private Integer idUserSender;
+    private String idUserSender;
 
     @Field("id_user_recipient")
-    private Integer idUserRecipient;
+    private String idUserRecipient;
 
     @Field("content_message")
     private String contentMessage;
@@ -51,29 +51,29 @@ public class Message implements Serializable {
         this.id = id;
     }
 
-    public Integer getIdUserSender() {
+    public String getIdUserSender() {
         return idUserSender;
     }
 
-    public Message idUserSender(Integer idUserSender) {
+    public Message idUserSender(String idUserSender) {
         this.idUserSender = idUserSender;
         return this;
     }
 
-    public void setIdUserSender(Integer idUserSender) {
+    public void setIdUserSender(String idUserSender) {
         this.idUserSender = idUserSender;
     }
 
-    public Integer getIdUserRecipient() {
+    public String getIdUserRecipient() {
         return idUserRecipient;
     }
 
-    public Message idUserRecipient(Integer idUserRecipient) {
+    public Message idUserRecipient(String idUserRecipient) {
         this.idUserRecipient = idUserRecipient;
         return this;
     }
 
-    public void setIdUserRecipient(Integer idUserRecipient) {
+    public void setIdUserRecipient(String idUserRecipient) {
         this.idUserRecipient = idUserRecipient;
     }
 
@@ -150,8 +150,8 @@ public class Message implements Serializable {
     public String toString() {
         return "Message{" +
             "id=" + getId() +
-            ", idUserSender=" + getIdUserSender() +
-            ", idUserRecipient=" + getIdUserRecipient() +
+            ", idUserSender='" + getIdUserSender() + "'" +
+            ", idUserRecipient='" + getIdUserRecipient() + "'" +
             ", contentMessage='" + getContentMessage() + "'" +
             ", dateMessage='" + getDateMessage() + "'" +
             ", readMessage='" + isReadMessage() + "'" +

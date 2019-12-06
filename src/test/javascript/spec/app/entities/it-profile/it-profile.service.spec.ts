@@ -57,7 +57,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             job: 'BBBBBB',
-            favLanguages: 'BBBBBB',
+            favLanguage: 'BBBBBB',
             favOS: 'BBBBBB',
             gamer: true,
             geek: true,
@@ -80,7 +80,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             job: 'BBBBBB',
-            favLanguages: 'BBBBBB',
+            favLanguage: 'BBBBBB',
             favOS: 'BBBBBB',
             gamer: true,
             geek: true,

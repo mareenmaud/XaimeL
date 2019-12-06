@@ -18,7 +18,10 @@ export class PsychoProfileUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     summaryProfile: [],
-    jungValues: []
+    jungValue1: [],
+    jungValue2: [],
+    jungValue3: [],
+    jungValue4: []
   });
 
   constructor(protected psychoProfileService: PsychoProfileService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -34,7 +37,10 @@ export class PsychoProfileUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: psychoProfile.id,
       summaryProfile: psychoProfile.summaryProfile,
-      jungValues: psychoProfile.jungValues
+      jungValue1: psychoProfile.jungValue1,
+      jungValue2: psychoProfile.jungValue2,
+      jungValue3: psychoProfile.jungValue3,
+      jungValue4: psychoProfile.jungValue4
     });
   }
 
@@ -57,7 +63,10 @@ export class PsychoProfileUpdateComponent implements OnInit {
       ...new PsychoProfile(),
       id: this.editForm.get(['id']).value,
       summaryProfile: this.editForm.get(['summaryProfile']).value,
-      jungValues: this.editForm.get(['jungValues']).value
+      jungValue1: this.editForm.get(['jungValue1']).value,
+      jungValue2: this.editForm.get(['jungValue2']).value,
+      jungValue3: this.editForm.get(['jungValue3']).value,
+      jungValue4: this.editForm.get(['jungValue4']).value
     };
   }
 
