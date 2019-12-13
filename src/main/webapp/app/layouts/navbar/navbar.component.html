@@ -9,13 +9,34 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                <a class="nav-link" routerLink="accueil" (click)="collapseNavbar()">
                     <span>
                         <fa-icon icon="home"></fa-icon>
-                        <span>Home</span>
+                        <span>Accueil</span>
                     </span>
                 </a>
             </li>
+
+             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="home"></fa-icon>
+                        <span>Notifications </span>
+                    </span>
+                </a>
+            </li>
+
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="conquete" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="home"></fa-icon>
+                        <span>Conquetes</span>
+                    </span>
+                </a>
+            </li>
+
+           
+
             <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -98,13 +119,58 @@
                   <span *ngIf="!getImageUrl()">
                     <fa-icon icon="user"></fa-icon>
                     <span>
-                      Account
+                      Connexion
                     </span>
                   </span>
                   <span *ngIf="getImageUrl()">
                       <img [src]="getImageUrl()" class="profile-image rounded-circle" alt="Avatar">
                   </span>
                 </a>
+
+
+                <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="profil-menu">
+                  <span *ngIf="!getImageUrl()">
+                    <fa-icon icon="user"></fa-icon>
+                    <span>
+                      Profil
+                    </span>
+                  </span>
+                  <span *ngIf="getImageUrl()">
+                      <img [src]="getImageUrl()" class="profile-image rounded-circle" alt="Avatar">
+                  </span>
+                </a>    
+
+
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="profil-menu">
+                    <li *ngSwitchCase="false">
+                        <a class="dropdown-item" routerLink="profil" routerLinkActive="active" (click)="collapseNavbar()">
+                            <fa-icon icon="wrench" fixedWidth="true"></fa-icon>
+                            <span>Mon profil</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="false">
+                        <a class="dropdown-item" routerLink="stats" routerLinkActive="active" (click)="collapseNavbar()">
+                            <fa-icon icon="lock" fixedWidth="true"></fa-icon>
+                            <span>Statistiques</span>
+                        </a>
+                    </li>
+
+                    <li *ngSwitchCase="false">
+                        <a class="dropdown-item" routerLink="stats" routerLinkActive="active" (click)="collapseNavbar()">
+                            <fa-icon icon="lock" fixedWidth="true"></fa-icon>
+                            <span>Deconnexion</span>
+                        </a>
+                    </li>
+
+
+                
+                      <form class="form-inline">
+                         <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Recherche</button>
+                     </form>
+                     
+
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="account/settings" routerLinkActive="active" (click)="collapseNavbar()">
@@ -136,8 +202,9 @@
                             <span>Register</span>
                         </a>
                     </li>
+                    
                 </ul>
             </li>
         </ul>
     </div>
-</nav>
+
