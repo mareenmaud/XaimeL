@@ -2,11 +2,18 @@
 Main page styles
 ========================================================================== */
 
+.hipsterg {
+  display: inline-block;
+  width: 347px;
+  height: 497px;
+  background: url('../../content/images/mrs-geek-render.png') no-repeat center top;
+}
+
 .hipster {
   display: inline-block;
   width: 347px;
   height: 497px;
-  background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
+  background: url('../../content/images/mr-geek-render.png') no-repeat center top;
   background-size: contain;
 }
 
