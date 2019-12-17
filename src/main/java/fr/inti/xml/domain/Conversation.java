@@ -18,8 +18,6 @@ public class Conversation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
-
     @Id
     @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private String id;
@@ -33,12 +31,6 @@ public class Conversation implements Serializable {
     @DBRef
     @Field("messages")
     private Set<Message> messages = new HashSet<>();
-
-
-
-
-
-
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
