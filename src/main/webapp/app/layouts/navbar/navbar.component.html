@@ -11,7 +11,8 @@
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="presentation" (click)="collapseNavbar()">
                     <span>
-                        
+                        <fa-icon icon=""></fa-icon>
+
                         <span>A propos</span>
                     </span>
                 </a>
@@ -37,8 +38,8 @@
 
 
 
-            
-                    
+
+
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
@@ -67,12 +68,12 @@
                             <span>User management</span>
                         </a>
                     </li>
-                   
-                   
+
+
                     <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
                 </ul>
             </li>
-            
+
 
 
                 <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
