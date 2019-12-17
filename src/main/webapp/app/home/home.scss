@@ -2,11 +2,27 @@
 Main page styles
 ========================================================================== */
 
+.Titre {
+  font-family: 'Brush Script MT';
+  color: purple;
+  font-size: 120px;
+  text-align: center;
+}
+
+.pres {
+  font-family: 'vladimir';
+  color: black;
+  font-size: 30px;
+  text-align: center;
+  font-style: italic;
+}
+
 .hipsterg {
   display: inline-block;
   width: 347px;
   height: 497px;
   background: url('../../content/images/mrs-geek-render.png') no-repeat center top;
+  float: right;
 }
 
 .hipster {
@@ -23,8 +39,4 @@ Main page styles
   only screen and (-o-min-device-pixel-ratio: 2/1),
   only screen and (min-resolution: 192dpi),
   only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
-    background-size: contain;
-  }
 }

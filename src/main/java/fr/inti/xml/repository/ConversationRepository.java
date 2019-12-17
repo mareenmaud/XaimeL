@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ConversationRepository extends MongoRepository<Conversation, String> {
-
+ Conversation findConversationByUsers(String user_id1,String user_id2);
 
 }
