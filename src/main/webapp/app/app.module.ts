@@ -13,7 +13,6 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
-import { PageAccueilComponent } from './page-accueil/page-accueil.component';
 import { PageConnexionComponent } from './page-connexion/page-connexion.component';
 import { PageConqueteComponent } from './page-conquete/page-conquete.component';
 import { PageInscriptionComponent } from './page-inscription/page-inscription.component';
@@ -43,7 +42,7 @@ import { StatsComponent } from './stats/stats.component';
     ErrorComponent,
     PageRibbonComponent,
     FooterComponent,
-    PageAccueilComponent,
+
     PageConnexionComponent,
     PageConqueteComponent,
     PageInscriptionComponent,
