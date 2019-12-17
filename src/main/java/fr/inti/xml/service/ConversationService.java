@@ -32,9 +32,11 @@ public class ConversationService {
 
     @Async
     public Conversation readConversation(String id_User1,String id_User2) {
-        Conversation conversation = conversationRepository.findConversationByUsers(id_User1, id_User2);
-        // TODO Auto-generated method stub
-        return conversation;
+        List<Conversation> conversationsUser1 = conversationRepository.findAllByIdUser1(id_User1);
+        for (Conversation c : conversationsUser1) {
+            if (c.getIdUser2()==id_User2) return c;
+        }
+        return null;
     }
 
     @Async
