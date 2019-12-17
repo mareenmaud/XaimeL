@@ -9,7 +9,6 @@ import { PagePresComponent } from 'app/page-pres/page-pres.component';
 import { PageProfilComponent } from 'app/page-profil/page-profil.component';
 import { PageConnexionComponent } from 'app/page-connexion/page-connexion.component';
 import { PageInscriptionComponent } from 'app/page-inscription/page-inscription.component';
-import { PageAccueilComponent } from 'app/page-accueil/page-accueil.component';
 import { PageProfilClientComponent } from 'app/page-profil-client/page-profil-client.component';
 import { PageConqueteComponent } from 'app/page-conquete/page-conquete.component';
 import { StatsComponent } from 'app/stats/stats.component';
@@ -41,7 +40,6 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
         { path: 'equipe', component: PageProfilComponent },
         { path: 'connexion', component: PageConnexionComponent },
         { path: 'inscription', component: PageInscriptionComponent },
-        { path: 'accueil', component: PageAccueilComponent },
         { path: 'profil', component: PageProfilClientComponent },
         { path: 'conquete', component: PageConqueteComponent },
         { path: 'stats', component: StatsComponent },
