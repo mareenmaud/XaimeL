@@ -42,6 +42,8 @@ public class Message implements Serializable {
     @JsonIgnoreProperties("messages")
     private Conversation conversation;
 
+
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;

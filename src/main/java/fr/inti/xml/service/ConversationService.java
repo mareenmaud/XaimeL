@@ -14,11 +14,11 @@ public class ConversationService {
     ConversationRepository conversationRepository;
 
     @Async
-    public boolean createConversation(User user1, User user2) {
+    public boolean createConversation(String id_user1, String id_user2) {
 
         Conversation conversation = new Conversation();
-        conversation.setIdUser1(user1.getId());
-        conversation.setIdUser2(user2.getId());
+        conversation.setIdUser1(id_user1);
+        conversation.setIdUser2(id_user2);
         try {
             conversationRepository.save(conversation);
             return true;
@@ -31,8 +31,8 @@ public class ConversationService {
     }
 
     @Async
-    public Conversation readConversation(String idConversation) {
-        Conversation conversation = conversationRepository.findById(idConversation).get();
+    public Conversation readConversation(String id_User1,String id_User2) {
+        Conversation conversation = conversationRepository.findConversationByUsers(id_User1, id_User2);
         // TODO Auto-generated method stub
         return conversation;
     }
