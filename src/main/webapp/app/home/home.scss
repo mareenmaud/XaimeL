@@ -1,6 +1,13 @@
 /* ==========================================================================
 Main page styles
 ========================================================================== */
+.Titree {
+  font-family: 'Brush Script MT';
+}
+
+.cadre {
+  background-color: plum;
+}
 
 .hipsterg {
   display: inline-block;
@@ -23,8 +30,4 @@ Main page styles
   only screen and (-o-min-device-pixel-ratio: 2/1),
   only screen and (min-resolution: 192dpi),
   only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
-    background-size: contain;
-  }
 }
