@@ -28,18 +28,3 @@
   border-right: 60px solid transparent;
   transform: rotate(120deg);
 }
-
-#txtVert,
-#txtRouge {
-  position: absolute;
-  z-index: 3;
-  color: white;
-}
-#txtVert {
-  top: 30px;
-  left: 70px;
-}
-#txtRouge {
-  top: 60px;
-  left: 20px;
-}

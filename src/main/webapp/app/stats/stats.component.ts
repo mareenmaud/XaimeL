@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceStatsService } from 'app/service-stats.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   providers: [ServiceStatsService],
