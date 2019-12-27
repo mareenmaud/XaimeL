@@ -25,6 +25,7 @@ import { PageProfilComponent } from './page-profil/page-profil.component';
 import { PageProfilClientComponent } from './page-profil-client/page-profil-client.component';
 import { PageReglementComponent } from './page-reglement/page-reglement.component';
 import { StatsComponent } from './stats/stats.component';
+import { ServiceStatsService } from './service-stats.service';
 
 @NgModule({
   imports: [
@@ -36,6 +37,8 @@ import { StatsComponent } from './stats/stats.component';
     XmLEntityModule,
     XmLAppRoutingModule
   ],
+  providers: [ServiceStatsService],
+
   declarations: [
     JhiMainComponent,
     NavbarComponent,
