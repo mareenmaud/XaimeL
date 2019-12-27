@@ -1,0 +1,45 @@
+#cambembert {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+#cambembertVert,
+#cambembertRouge1,
+#cambembertRouge2 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 60px solid green;
+  border-radius: 60px;
+}
+#cambembertVert {
+  z-index: 1;
+}
+#cambembertRouge1 {
+  z-index: 2;
+  border: 60px solid red;
+  border-top: 60px solid transparent;
+  border-right: 60px solid transparent;
+}
+#cambembertRouge2 {
+  z-index: 2;
+  border: 60px solid red;
+  border-top: 60px solid transparent;
+  border-right: 60px solid transparent;
+  transform: rotate(120deg);
+}
+
+#txtVert,
+#txtRouge {
+  position: absolute;
+  z-index: 3;
+  color: white;
+}
+#txtVert {
+  top: 30px;
+  left: 70px;
+}
+#txtRouge {
+  top: 60px;
+  left: 20px;
+}
