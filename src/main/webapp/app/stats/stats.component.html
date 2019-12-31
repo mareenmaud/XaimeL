@@ -1,3 +1,5 @@
+<canvas id="myChart" style="max-width: 500px;"></canvas>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
@@ -30,32 +32,15 @@
             </p>
         </div>
 
-        <script type="text/javascript">
-let cam = document.createElement("DIV");
-cam = 120;
-cam.id="cam";
-
-            let nombreTotalMessages = tab[0].nombreMessagesE + tab[0].nombreMessagesR;
-            let rouge = (tab[0].nombreMessagesE/nombreTotalMessages)*100;
-            let vert = (tab[0].nombreMessagesR/nombreTotalMessages)*100;
-            let bleu = 120;
-        </script>
-
-        
-        
-
-
+  
         <div class="col-lg-3">
-            <div id="cambembert">
-                <div id="cambembertVert"></div>
-                <div id="cambembertRouge1"></div>
-                <div id="cambembertRouge2"></div>
-              </div>
-              
-              
-              
+
+            
+              <script src = "stats.component.js"></script>
             <p>en resume vous etes un:</p>
 
         </div>
     </div>
 </div>
+
+
