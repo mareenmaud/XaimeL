@@ -22,7 +22,8 @@
 <br>
 <br>
 <br>
-
+<div [ngSwitch]="isAuthenticated()">
+    <div *ngSwitchCase="false">
 <div class="container">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
@@ -65,6 +66,13 @@
         </div>
     </div>
 </div>
+    </div>
+
+    <div class *ngSwitchCase="true">
+        <span id="home-logged-message" *ngIf="account">
+            <h5>Vous êtes connectés avec le compte de "{{account.login}}".</h5>
+        </span>
+    </div>
 <br>
 <br>
 <br>
@@ -84,3 +92,5 @@
         </div>
     </div>
 </div>
+
+
