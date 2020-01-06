@@ -3,6 +3,7 @@ package fr.inti.xml.web.rest;
 import fr.inti.xml.XmLApp;
 import fr.inti.xml.domain.ExtendedUser;
 import fr.inti.xml.repository.ExtendedUserRepository;
+import fr.inti.xml.repository.UserRepository;
 import fr.inti.xml.repository.search.ExtendedUserSearchRepository;
 import fr.inti.xml.web.rest.errors.ExceptionTranslator;
 
@@ -88,6 +89,9 @@ public class ExtendedUserResourceIT {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    UserRepository userRepository;
+
     private MockMvc restExtendedUserMockMvc;
 
     private ExtendedUser extendedUser;
@@ -95,7 +99,8 @@ public class ExtendedUserResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ExtendedUserResource extendedUserResource = new ExtendedUserResource(extendedUserRepository, mockExtendedUserSearchRepository);
+        final ExtendedUserResource extendedUserResource = new ExtendedUserResource(extendedUserRepository, mockExtendedUserSearchRepository,
+            userRepository);
         this.restExtendedUserMockMvc = MockMvcBuilders.standaloneSetup(extendedUserResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -219,7 +224,7 @@ public class ExtendedUserResourceIT {
             .andExpect(jsonPath("$.[*].hobbies").value(hasItem(DEFAULT_HOBBIES)))
             .andExpect(jsonPath("$.[*].profilePhotoURL").value(hasItem(DEFAULT_PROFILE_PHOTO_URL)));
     }
-    
+
     @Test
     public void getExtendedUser() throws Exception {
         // Initialize the database
