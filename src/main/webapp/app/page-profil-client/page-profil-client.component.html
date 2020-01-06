@@ -62,8 +62,7 @@
             
             <div class="form-group">
               <label for="exampleInputPassword1">Mail</label>
-              <input type="mail" class="form-control" id="exampleInputPassword1">
-              <p>ezffz</p>
+              <input type="text" class="form-control" id="exampleInputPassword1">
               <button type="submit" class="btn btn-primary">envoyer</button>
             </div>
             
@@ -73,15 +72,22 @@
           <label>preferences</label>
           <ul id="menu2">
             <li *ngFor= "let item of tab[4].preference" >
-            <a>{{item}}</a>
-            <form>
-                <input type="text">
-            </form>
+            <label for= "modif" >{{item}}</label>
+            <input type="text" [disabled]="!isActivated()" id = "modif">
+            <button  (click)="change()">modifier</button>
+            <button type="submit" class="btn btn-primary">Confirmer</button>
+            
+           
+            
+            
+    
             </li>
             </ul>
 
+            
 
      </div>
 </div>
+
 
 

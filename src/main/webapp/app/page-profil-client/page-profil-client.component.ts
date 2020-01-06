@@ -9,8 +9,22 @@ import { ServiceProfilFacticeService } from 'app/service-profil-factice.service'
 })
 export class PageProfilClientComponent implements OnInit {
   tab: any[];
+  act: boolean;
+  isValid: boolean;
+
   constructor(serviceF: ServiceProfilFacticeService) {
     this.tab = serviceF.tab;
+  }
+
+  change() {
+    this.act = !this.act;
+  }
+  isActivated() {
+    return this.act;
+  }
+
+  isValidForm() {
+    return this.isValid;
   }
 
   ngOnInit() {}
