@@ -63,6 +63,7 @@
             <div class="form-group">
               <label for="exampleInputPassword1">Mail</label>
               <input type="mail" class="form-control" id="exampleInputPassword1">
+              <p>ezffz</p>
               <button type="submit" class="btn btn-primary">envoyer</button>
             </div>
             
@@ -70,6 +71,14 @@
           </form>
 
           <label>preferences</label>
+          <ul id="menu2">
+            <li *ngFor= "let item of tab[4].preference" >
+            <a>{{item}}</a>
+            <form>
+                <input type="text">
+            </form>
+            </li>
+            </ul>
 
 
      </div>
