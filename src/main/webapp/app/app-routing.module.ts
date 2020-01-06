@@ -17,6 +17,7 @@ import { PageInvitationsComponent } from 'app/page-invitations/page-invitations.
 import { PageParametresComponent } from 'app/page-parametres/page-parametres.component';
 import { PageMessagesComponent } from 'app/page-messages/page-messages.component';
 import { PageReglementComponent } from 'app/page-reglement/page-reglement.component';
+import { PageMdpPerduComponent } from 'app/page-mdp-perdu/page-mdp-perdu.component';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
@@ -47,6 +48,7 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
         { path: 'invitations', component: PageInvitationsComponent },
         { path: 'parametres', component: PageParametresComponent },
         { path: 'messages', component: PageMessagesComponent },
+        { path: 'mdp', component: PageMdpPerduComponent },
         { path: 'reglement', component: PageReglementComponent },
         ...LAYOUT_ROUTES
       ],

@@ -26,6 +26,7 @@ import { PageProfilClientComponent } from './page-profil-client/page-profil-clie
 import { PageReglementComponent } from './page-reglement/page-reglement.component';
 import { StatsComponent } from './stats/stats.component';
 import { ServiceStatsService } from './service-stats.service';
+import { PageMdpPerduComponent } from './page-mdp-perdu/page-mdp-perdu.component';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { ServiceStatsService } from './service-stats.service';
     PageProfilComponent,
     PageProfilClientComponent,
     PageReglementComponent,
-    StatsComponent
+    StatsComponent,
+    PageMdpPerduComponent
   ],
   bootstrap: [JhiMainComponent]
 })
