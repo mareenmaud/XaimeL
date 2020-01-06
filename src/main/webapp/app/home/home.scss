@@ -4,9 +4,11 @@ Main page styles
 
 .Titre {
   font-family: 'Brush Script MT';
-  color: snow;
+  text-shadow: 0 0 2px #00fffc, 0 0 30px #00fffc, 0px 0px 5px #00fffc, 0 0 150px #00fffc;
+  color: #00fffc;
   font-size: 120px;
   text-align: center;
+  margin-top: 100px;
 }
 
 .pres {

@@ -1,13 +1,13 @@
     <ul>
-        <li *ngFor="let prof of tab">
+        <li *ngFor="let prof of tab;let i = index">
             
             <p>
-            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample{{i}}" role="button" aria-expanded="false" aria-controls="collapseExample">
               {{prof.nom}}
             </a>
           </p>
           
-          <div class="collapse" id="collapseExample">
+          <div class="collapse" id="collapseExample{{i}}">
             <div class="card card-body">
               {{prof.messages}}
             </div>
