@@ -1,1 +1,78 @@
-<p>page-profil-client works!</p>
+<p>Mon profil</p>
+<p>indications: il faudrait une méthode qui indique le profil acutel pour afficher les bonnes infos</p>
+
+<div class = "row">
+    <div class = "col-lg-4">    
+            <img class="d-block w-25" src={{tab[4].photo}} id="photo">
+    </div>
+
+    <div class = "col-lg-4">
+        <label>Pseudo: {{tab[4].pseudo}}</label>  <br/>
+        <label>Nom: {{tab[4].nom}}</label> <label>Prenom: {{tab[4].prenom}}</label>  <br/>
+        <label>Age: {{tab[4].age}}</label> <br/>
+        <label>Mail: {{tab[4].mail}}</label>
+
+    </div>
+
+    <div class = "col-lg-4">
+
+        
+    </div>
+
+</div>
+
+<div class = "row">
+    <div class = "col-lg-4">  
+        <br/>
+
+<br/>
+<br/>
+<p>Mes preferences:</p> 
+
+
+<label>Gouts:</label>
+<ul id="cemenu">
+<li *ngFor= "let item of tab[4].preference" >
+<a>{{item}}</a>
+</li>
+</ul>
+<label>Sexe: {{tab[4].sexe}}</label> 
+    </div>
+</div>
+
+
+<div class = "row">
+    <div class = "col-lg-4"> 
+
+        <br/>
+        <br/>
+        <p>Modifier</p>
+        <form>
+            
+            <div class="form-group">
+              <label for="exampleInputPassword1">Mot de passe</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              <button type="submit" class="btn btn-primary">envoyer</button>
+            </div>
+            
+            
+          </form>
+
+          <form>
+            
+            <div class="form-group">
+              <label for="exampleInputPassword1">Mail</label>
+              <input type="mail" class="form-control" id="exampleInputPassword1">
+              <button type="submit" class="btn btn-primary">envoyer</button>
+            </div>
+            
+            
+          </form>
+
+          <label>preferences</label>
+
+
+     </div>
+</div>
+
+
