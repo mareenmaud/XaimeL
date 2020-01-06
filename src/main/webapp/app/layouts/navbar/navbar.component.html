@@ -6,7 +6,7 @@
     <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
         <fa-icon icon="bars"></fa-icon>
     </a>
-    <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
+        <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="presentation" (click)="collapseNavbar()">
@@ -17,7 +17,6 @@
                     </span>
                 </a>
             </li>
-
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="messages" (click)="collapseNavbar()">
                     <span>
@@ -46,7 +45,14 @@
                 </a>
             </li>
 
-
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="equipe" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon=""></fa-icon>
+                        <span>Notre équipe</span>
+                    </span>
+                </a>
+            </li>
 
 
 
@@ -142,10 +148,13 @@
                     </li>
                 </ul>
         </ul>
+                </li>
+        </ul>
+    </div>
 
         <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Recherche</button>
+        <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Rechercher</button>
         </form>
 
 
