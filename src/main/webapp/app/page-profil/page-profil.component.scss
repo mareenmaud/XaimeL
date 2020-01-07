@@ -1,7 +1,13 @@
+body {
+  width: 100%;
+}
+
 h2 {
   color: snow;
   font-family: 'vladimir';
-  font-size: 40px;
+  text-transform: lowercase;
+  text-transform: capitalize;
+  font-size: 80px;
   font-style: italic;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 2px #141414, 1px 1px 3px #141414,
     1px 1px 5px #141414, 1px 1px 7px #141414, 1px 1px 10px #141414, 1px 1px 12px #141414, 1px 1px 18px #141414;
@@ -9,7 +15,9 @@ h2 {
 }
 
 .presequipe {
-  margin: 50px 100px 2em 0;
+  margin-top: 2px;
+  margin-right: 400px;
+  margin-left: 400px;
 }
 
 .teamLeader {
@@ -28,6 +36,7 @@ h2 {
 }
 
 h4 {
+  margin-top: 10px;
   text-align: center;
   font-size: 30px;
 }
@@ -36,4 +45,41 @@ h4 {
   text-align: center;
   font-size: 20px;
   color: snow;
+}
+
+.imagezoom {
+  width: 100%;
+  height: 100%;
+}
+.imagezoom img {
+  /* La transition s'applique à la fois sur la largeur et la hauteur, avec une durée d'une seconde. */
+  -webkit-transition: all 1s ease; /* Safari et Chrome */
+  -moz-transition: all 1s ease; /* Firefox */
+  -ms-transition: all 1s ease; /* Internet Explorer 9 */
+  -o-transition: all 1s ease; /* Opera */
+  transition: all 1s ease;
+}
+.imagezoom:hover img {
+  /* L'image est grossie de 25% */
+  -webkit-transform: scale(1.25); /* Safari et Chrome */
+  -moz-transform: scale(1.25); /* Firefox */
+  -ms-transform: scale(1.25); /* Internet Explorer 9 */
+  -o-transform: scale(1.25); /* Opera */
+  transform: scale(1.25);
+}
+
+.pres {
+  color: #e7f0f7;
+  font-size: 25px;
+  margin-top: 60px;
+  margin-left: 400px;
+  margin-right: 400px;
+  font-style: italic;
+  text-align: justify;
+  -moz-text-align-last: center;
+  text-align-last: center;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }

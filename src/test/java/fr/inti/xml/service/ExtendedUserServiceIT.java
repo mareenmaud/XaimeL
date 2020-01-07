@@ -56,7 +56,7 @@ public class ExtendedUserServiceIT {
     private static final PsychoProfile DEFAULT_PSYCHOPROFILE = new PsychoProfile();
     private static final User DEFAULT_USER = new User();
     private static final ExtendedUser DEFAULT_EXTENDEDUSER = null;
-    private static final Set<ExtendedUser> DEFAULT_MATCHES = new HashSet<>();
+    private static final Set<String> DEFAULT_MATCHES = new HashSet<>();
 
     @Autowired
     private ExtendedUserRepository extendedUserRepository;
