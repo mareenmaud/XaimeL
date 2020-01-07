@@ -42,7 +42,7 @@ public class ExtendedUserDTO {
 
     private ExtendedUser extendedUser;
 
-    private Set<ExtendedUser> matches = new HashSet<>();
+    private Set<String> matches = new HashSet<>();
 
     public ExtendedUserDTO() { }
 
@@ -176,11 +176,13 @@ public class ExtendedUserDTO {
         this.extendedUser = extendedUser;
     }
 
-    public Set<ExtendedUser> getMatches() {
+    public Set<String> getMatches() {
         return matches;
     }
 
-    public void setMatches(Set<ExtendedUser> matches) {
+    private Set<String> invitations = new HashSet<>();
+
+    public void setMatches(Set<String> matches) {
         this.matches = matches;
     }
 
@@ -201,6 +203,7 @@ public class ExtendedUserDTO {
             ", psychoProfile=" + psychoProfile +
             ", user=" + user +
             ", extendedUser=" + extendedUser +
+            ", invitations=" + invitations +
             ", matches=" + matches +
             '}';
     }

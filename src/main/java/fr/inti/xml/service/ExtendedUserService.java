@@ -66,7 +66,7 @@ public class ExtendedUserService {
     public void updateExtendedUser(Instant birthDate, Instant memberSince, Double locationLongitude, Double locationLatitude,
                            String gender, String interest, Double note, String hobbies, String profilePhotoURL,
                            ITProfile iTProfile, PsychoProfile psychoProfile, User user1, ExtendedUser extendedUser1,
-                           Set<ExtendedUser> matches) {
+                           Set<String> matches) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
             .ifPresent(user -> {
@@ -167,8 +167,12 @@ public class ExtendedUserService {
      */
     public List<ExtendedUser> sortUsersByDistance(List<ExtendedUser> users, List<Double> distances) {
 
-        Double[] distancesArray = (Double[]) distances.toArray();
-        ExtendedUser[] usersArray = (ExtendedUser[]) users.toArray();
+        double[] distancesArray = new double[distances.size()];
+        ExtendedUser[] usersArray = new ExtendedUser[distances.size()];
+        for (int i = 0; i < distancesArray.length; i++) {
+            distancesArray[i] = distances.get(i);
+            usersArray[i] = users.get(i);
+        }
 
         Double tempD;
         ExtendedUser tempU;
@@ -193,20 +197,6 @@ public class ExtendedUserService {
             if (is_sorted) break;
         }
         return Arrays.asList(usersArray);
-    }
-
-    /**
-     * Gets a user's matches and sorts by psychological distance
-     */
-    public List<ExtendedUser> getAndSortMatches(ExtendedUser user) {
-
-        List<Double> distances = new ArrayList<>();
-        List<ExtendedUser> matches = new ArrayList<>();
-        for (ExtendedUser match : user.getMatches()) {
-            matches.add(match);
-            distances.add(this.psychoDistance(user, match));
-        }
-        return sortUsersByDistance(matches, distances);
     }
 
     /**
@@ -242,20 +232,6 @@ public class ExtendedUserService {
             distances.add(this.psychoDistance(u, user));
         }
         return this.sortUsersByDistance(closeUsers, distances);
-    }
-
-    /**
-     * Adds a new match to a user
-     */
-    public ExtendedUser addMatch(ExtendedUser user, ExtendedUser match) {
-
-        try {
-            user.getMatches().add(match);
-            return user;
-        } catch (Exception e) {
-            System.err.println("Error adding match");
-        }
-        return user;
     }
 
     /**
