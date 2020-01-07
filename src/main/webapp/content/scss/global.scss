@@ -3,9 +3,15 @@
 @import '~bootswatch/dist/lux/variables';
 @import '~bootstrap/scss/variables';
 
+@font-face {
+  font-family: 'pixeled-webfont';
+  src: url('../../content/police/pixeled-webfont.ttf');
+}
+
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
+
 body,
 h1,
 h2,
