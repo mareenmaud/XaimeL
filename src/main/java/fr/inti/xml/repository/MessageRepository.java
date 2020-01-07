@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface MessageRepository extends MongoRepository<Message, String> {
-
+    Message findOneById(String id);
 }
