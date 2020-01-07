@@ -72,18 +72,8 @@ h4 {
   margin-right: 400px;
   font-style: italic;
   text-align: justify;
-
-  /* La dernière ligne de texte du bloc est
-       centrée*/
   -moz-text-align-last: center;
   text-align-last: center;
-
-  /* Plutôt que le saut de ligne se fasse entre deux mots,
-       il peut être fait en découpant un mot, selon les règles
-       de la langue utilisée. Cela permet de découper le texte
-       clairement avec un trait d'union. Si cela ne vous
-       importe pas, vous pouvez utiliser word-break ou
-       word-wrap à la place  */
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   -ms-hyphens: auto;
