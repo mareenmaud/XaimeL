@@ -1,7 +1,35 @@
+.titreProfil {
+  text-align: center;
+  font-size: 60px;
+  color: snow;
+  font-family: pixeled-webfont;
+  text-transform: lowercase;
+  text-transform: capitalize;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 2px #141414, 1px 1px 3px #141414,
+    1px 1px 5px #141414, 1px 1px 7px #141414, 1px 1px 10px #141414, 1px 1px 12px #141414, 1px 1px 18px #141414;
+  margin-bottom: 150px;
+}
+
 #photo {
-  transform: rotate(90deg);
+  height: 350px;
+  width: 350px;
   float: left;
-  margin: 0 10px 0 150px;
+  margin-left: 70%;
+  border: 5px outset white;
+}
+
+.descriptif-profil {
+  float: right;
+  font-size: 30px;
+  color: snow;
+  margin-top: 10px;
+}
+
+.ensemble-preferences {
+  margin: 250px;
+  background-color: rgba(255, 255, 255, 0.24);
+  color: black;
+  font-size: 30px;
 }
 
 ul#cemenu li {
