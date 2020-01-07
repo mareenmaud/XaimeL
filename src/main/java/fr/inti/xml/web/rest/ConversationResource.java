@@ -23,6 +23,7 @@ import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -149,6 +150,7 @@ public class ConversationResource {
 
     // ************** mes webservices
     // créer une conversation à partir des id des deux utilisateurs
+    //http://localhost:8082/api/createconversation?id_user1=***&id_user2=***
     @PostMapping("/createconversation")
     public ResponseEntity<Conversation> createConversation(@RequestParam String id_user1,@RequestParam String id_user2) throws URISyntaxException {
         Conversation conversation = new Conversation();
@@ -185,6 +187,7 @@ public class ConversationResource {
             .body(result);
     }
 // trouver une conversation a partir des id des deux utilisateurs
+    // http://localhost:8082/api/conversationuser?id_user1=***&id_user2=***
     @GetMapping("/conversationuser")
     public ResponseEntity<Conversation> getConversationUser(@RequestParam String id_user1,@RequestParam String id_user2) {
         Conversation conversationtampon=null;
@@ -212,7 +215,9 @@ public class ConversationResource {
         Optional<Conversation> conversation = conversationRepository.findById(conversationtampon.getId());
         return ResponseUtil.wrapOrNotFound(conversation);
     }
-    //*********
+    //********* ajouter un message
+    //http://localhost:8082/api/ajoutermessage
+    
     @PutMapping("/ajoutermessage")
     public ResponseEntity<Conversation> ajouterMessage(@RequestBody Message message) throws URISyntaxException {
         Conversation conversationtampon=null;
@@ -221,6 +226,12 @@ if( conversationtampon.getId()==null){
     throw new BadRequestAlertException("Invalid request", ENTITY_NAME, "the conversation doesn't exist");
 
 }
+        Set<Message> messages= conversationtampon.getMessages();
+    if(messages.contains(message.getId())){
+        conversationtampon.removeMessages(message);
+
+        }
+
         conversationtampon.addMessages(message);
 
         Conversation result = conversationRepository.save(conversationtampon);
@@ -229,4 +240,5 @@ if( conversationtampon.getId()==null){
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, conversationtampon.getId().toString()))
             .body(result);
     }
+
 }

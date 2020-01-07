@@ -146,6 +146,8 @@ public class MessageResource {
     }
 // mes webservices
     //*********** methode pour créer un message
+    //http://localhost:8082/api/createmessage
+    //{"idUserSender":"adri", "idUserRecipient":"sam", "contentMessage":"bien et toi?","id":"5e148b1f7d74c70778b88734","idUser1":"sam","idUser2":"adri"}
     @PostMapping("/createmessage")
     public ResponseEntity<Message> createMessage(@RequestBody Map<String,String> json) throws URISyntaxException {
     Conversation conversation=new Conversation();
@@ -170,4 +172,24 @@ public class MessageResource {
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
+
+//********** message lu
+    //http://localhost:8082/api/messagelu?id_message=******
+@PutMapping("/messagelu")
+public ResponseEntity<Message> messagelu(@RequestParam String id_message) throws URISyntaxException {
+
+    Message message=messageRepository.findOneById(id_message);
+    log.debug("REST request to update Message : {}", message);
+    if (message.getId() == null) {
+        throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+    }
+    message.setReadMessage(true);
+    messageRepository.delete(message);
+    Message result = messageRepository.save(message);
+    messageSearchRepository.save(result);
+    return ResponseEntity.ok()
+        .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, message.getId().toString()))
+        .body(result);
+}
+
 }
