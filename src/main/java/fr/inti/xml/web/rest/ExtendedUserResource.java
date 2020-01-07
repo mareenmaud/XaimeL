@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -187,13 +184,17 @@ public class ExtendedUserResource {
     /**
      * Sorts a list of users by ascending distance
      */
-    public List<ExtendedUser> sortUsersByDistance(List<ExtendedUser> users, List<Double> distances) {
+    public List<String> sortUsersByDistance(List<String> idUsers, List<Double> distances) {
 
-        Double[] distancesArray = (Double[]) distances.toArray();
-        ExtendedUser[] usersArray = (ExtendedUser[]) users.toArray();
+        double[] distancesArray = new double[distances.size()];
+        String[] usersArray = new String[distances.size()];
+        for (int i = 0; i < distancesArray.length; i++) {
+            distancesArray[i] = distances.get(i);
+            usersArray[i] = idUsers.get(i);
+        }
 
         Double tempD;
-        ExtendedUser tempU;
+        String tempU;
         boolean is_sorted;
         int nbMatches = distancesArray.length;
         for (int i = 0; i < nbMatches; i++) {
@@ -225,8 +226,9 @@ public class ExtendedUserResource {
     public ExtendedUser findExtendedUserByUser(User user) {
         List<ExtendedUser> allExtendedUsers = extendedUserRepository.findAll();
         for (ExtendedUser exu : allExtendedUsers) {
-            if (exu.getUser().getId()==user.getId()) return exu;
+            if (exu.getUser().getId().equals(user.getId())) return exu;
         }
+        log.debug("No ExtendedUser found for User with id: "+user.getId());
         return null;
     }
 
@@ -234,15 +236,21 @@ public class ExtendedUserResource {
      * Gets a user's matches and sorts by psychological distance
      */
     @GetMapping("/get-and-sort-matches/{id}")
-    public List<ExtendedUser> getAndSortMatches(@PathVariable String id) throws URISyntaxException {
+    public List<String> getAndSortMatches(@PathVariable String id) throws URISyntaxException {
         log.debug("REST request to get and sort matches for ExtendedUser: {}", id);
-        User user = userRepository.findById(id).get();
-        ExtendedUser extendedUser = findExtendedUserByUser(user);
+        ExtendedUser extendedUser = extendedUserRepository.findById(id).get();
         List<Double> distances = new ArrayList<>();
-        List<ExtendedUser> matches = new ArrayList<>();
-        for (ExtendedUser match : extendedUser.getMatches()) {
-            matches.add(match);
-            distances.add(this.psychoDistance(extendedUser, match));
+        List<String> matches = new ArrayList<>();
+        if (extendedUser.getMatches().isEmpty()) return Collections.emptyList();
+        for (String idMatch : extendedUser.getMatches()) {
+            matches.add(idMatch);
+            ExtendedUser match = extendedUserRepository.findById(idMatch).get();
+            if (extendedUser.getPsychoProfile()!=null && match.getPsychoProfile()!=null) {
+                distances.add(this.psychoDistance(extendedUser, match));
+            }
+            else {
+                distances.add(0.0);
+            }
         }
         return sortUsersByDistance(matches, distances);
     }
@@ -250,20 +258,23 @@ public class ExtendedUserResource {
     /**
      * Gets all users geographically close enough
      */
-    public List<ExtendedUser> getCloseUsers(ExtendedUser user) {
+    public List<String> getCloseUsers(ExtendedUser user) {
 
         List<ExtendedUser> allUsers = extendedUserRepository.findAll();
         List<ExtendedUser> allUsersWithSameSummary = new ArrayList<>();
         for (ExtendedUser u : allUsers) {
-            if (u.getPsychoProfile().getSummaryProfile().equals(user.getPsychoProfile().getSummaryProfile())) {
-                allUsersWithSameSummary.add(u);
+            if (u.getPsychoProfile()!=null) {
+                if (u.getPsychoProfile().getSummaryProfile().equals(user.getPsychoProfile().getSummaryProfile())) {
+                    allUsersWithSameSummary.add(u);
+                }
             }
         }
 
-        List<ExtendedUser> closeUsers = new ArrayList<>();
+        List<String> closeUsers = new ArrayList<>();
         for (ExtendedUser u : allUsersWithSameSummary) {
-            if (this.geoDistance(user, u)<=distanceMax) {
-                closeUsers.add(u);
+            if (this.geoDistance(user, u)<=distanceMax && !u.getId().equals(user.getId())
+            && user.getInterest().equals(u.getGender())) {
+                closeUsers.add(u.getId());
             }
         }
         return closeUsers;
@@ -273,15 +284,115 @@ public class ExtendedUserResource {
      * Gets possible matches
      */
     @GetMapping("/get-possible-matches/{id}")
-    public List<ExtendedUser> getPossibleMatches(@PathVariable String id) throws URISyntaxException {
+    public List<String> getPossibleMatches(@PathVariable String id) throws URISyntaxException {
         log.debug("REST request to get possible matches for ExtendedUser: {}", id);
-        User user = userRepository.findById(id).get();
-        ExtendedUser extendedUser = findExtendedUserByUser(user);
-        List<ExtendedUser> closeUsers = getCloseUsers(extendedUser);
+        ExtendedUser extendedUser = extendedUserRepository.findById(id).get();
+        List<String> closeUsers = getCloseUsers(extendedUser);
         List<Double> distances = new ArrayList<>();
-        for (ExtendedUser u : closeUsers) {
-            distances.add(this.psychoDistance(u, extendedUser));
+        for (String u : closeUsers) {
+            ExtendedUser closeUser = extendedUserRepository.findById(u).get();
+            if (!extendedUser.getMatches().contains(closeUser.getId())) {
+                distances.add(this.psychoDistance(closeUser, extendedUser));
+            }
         }
         return this.sortUsersByDistance(closeUsers, distances);
+    }
+
+    /**
+     * Adds a new match to a user
+     */
+    public ExtendedUser addOneMatchToOneUser(String id, String idMatch) {
+
+        ExtendedUser extendedUser = extendedUserRepository.findById(id).get();
+        ExtendedUser extendedMatch = extendedUserRepository.findById(idMatch).get();
+
+        try {
+            extendedUser.getMatches().add(extendedMatch.getId());
+            return extendedUser;
+        } catch (Exception e) {
+            log.debug("Error adding match");
+        }
+        return extendedUser;
+    }
+
+    /**
+     * Adds a new match to a user
+     */
+    public ExtendedUser addOneInvitationToOneUser(String id, String idMatch) {
+
+        ExtendedUser extendedUser = extendedUserRepository.findById(id).get();
+        ExtendedUser extendedMatch = extendedUserRepository.findById(idMatch).get();
+
+        try {
+            extendedUser.getInvitations().add(extendedMatch.getId());
+            return extendedUser;
+        } catch (Exception e) {
+            log.debug("Error adding match");
+        }
+        return extendedUser;
+    }
+
+    /**
+     * Adds a new match to a user
+     */
+    public ExtendedUser removeOneInvitationToOneUser(String id, String idMatch) {
+
+        ExtendedUser extendedUser = extendedUserRepository.findById(id).get();
+        ExtendedUser extendedMatch = extendedUserRepository.findById(idMatch).get();
+
+        try {
+            extendedUser.getInvitations().remove(extendedMatch.getId());
+            return extendedUser;
+        } catch (Exception e) {
+            log.debug("Error adding match");
+        }
+        return extendedUser;
+    }
+
+    @PostMapping("/add-match")
+    public boolean addMatch(@RequestParam String idInvitationSender, @RequestParam String idInvitationRecipient) {
+        ExtendedUser sender = extendedUserRepository.findById(idInvitationSender).get();
+        ExtendedUser recipient = extendedUserRepository.findById(idInvitationRecipient).get();
+        if (recipient.getInvitations().contains(sender.getId())) {
+            log.debug("Adding a match");
+            ExtendedUser updatedSender = addOneMatchToOneUser(idInvitationSender, idInvitationRecipient);
+            ExtendedUser updatedRecipient = addOneMatchToOneUser(idInvitationRecipient, idInvitationSender);
+            updatedRecipient.getInvitations().remove(sender.getId());
+            extendedUserRepository.save(updatedSender);
+            extendedUserRepository.save(updatedRecipient);
+            return true;
+        }
+        else {
+            log.debug("Adding an invitation");
+            ExtendedUser user1 = addOneInvitationToOneUser(idInvitationSender, idInvitationRecipient);
+            extendedUserRepository.save(user1);
+            return false;
+        }
+    }
+
+    /**
+     * Deletes a match from a user
+     */
+    public ExtendedUser deleteOneMatchFromOneUser(String id, String idMatch) {
+
+        ExtendedUser extendedUser = extendedUserRepository.findById(id).get();
+
+        try {
+            extendedUser.getMatches().remove(idMatch);
+            return extendedUser;
+        } catch (Exception e) {
+            log.debug("Error deleting match");
+        }
+        return extendedUser;
+    }
+
+    @DeleteMapping("/delete-match")
+    public boolean deleteMatch(@RequestParam String idUser1, @RequestParam String idUser2) {
+        log.debug("Deleting a match");
+        ExtendedUser user1 = deleteOneMatchFromOneUser(idUser1, idUser2);
+        ExtendedUser user2 = deleteOneMatchFromOneUser(idUser2, idUser1);
+        extendedUserRepository.save(user1);
+        extendedUserRepository.save(user2);
+        return true;
     }
 }

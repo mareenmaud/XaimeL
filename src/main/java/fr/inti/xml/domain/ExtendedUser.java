@@ -68,9 +68,11 @@ public class ExtendedUser implements Serializable {
     @JsonIgnoreProperties("extendedUsers")
     private ExtendedUser extendedUser;
 
-    @DBRef
+    @Field("invitations")
+    private Set<String> invitations = new HashSet<>();
+
     @Field("matches")
-    private Set<ExtendedUser> matches = new HashSet<>();
+    private Set<String> matches = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -250,28 +252,45 @@ public class ExtendedUser implements Serializable {
         this.extendedUser = extendedUser;
     }
 
-    public Set<ExtendedUser> getMatches() {
+    public Set<String> getInvitations() {
+        return invitations;
+    }
+
+    public ExtendedUser invitations(Set<String> extendedUsers) {
+        this.invitations = extendedUsers;
+        return this;
+    }
+
+    public ExtendedUser addInvitations(String extendedUser) {
+        this.invitations.add(extendedUser);
+        return this;
+    }
+
+    public ExtendedUser removeInvitations(String extendedUser) {
+        this.invitations.remove(extendedUser);
+        return this;
+    }
+
+    public Set<String> getMatches() {
         return matches;
     }
 
-    public ExtendedUser matches(Set<ExtendedUser> extendedUsers) {
+    public ExtendedUser matches(Set<String> extendedUsers) {
         this.matches = extendedUsers;
         return this;
     }
 
-    public ExtendedUser addMatches(ExtendedUser extendedUser) {
+    public ExtendedUser addMatches(String extendedUser) {
         this.matches.add(extendedUser);
-        extendedUser.setExtendedUser(this);
         return this;
     }
 
-    public ExtendedUser removeMatches(ExtendedUser extendedUser) {
+    public ExtendedUser removeMatches(String extendedUser) {
         this.matches.remove(extendedUser);
-        extendedUser.setExtendedUser(null);
         return this;
     }
 
-    public void setMatches(Set<ExtendedUser> extendedUsers) {
+    public void setMatches(Set<String> extendedUsers) {
         this.matches = extendedUsers;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
