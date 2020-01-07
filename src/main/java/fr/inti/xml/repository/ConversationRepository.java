@@ -15,5 +15,6 @@ public interface ConversationRepository extends MongoRepository<Conversation, St
 
     List<Conversation> findAllByIdUser1(String user_id1);
     List<Conversation> findAllByIdUser2(String user_id2);
+    Conversation findOneById(String id);
 
 }

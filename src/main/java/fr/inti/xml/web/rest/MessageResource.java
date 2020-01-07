@@ -1,5 +1,6 @@
 package fr.inti.xml.web.rest;
 
+import fr.inti.xml.domain.Conversation;
 import fr.inti.xml.domain.Message;
 import fr.inti.xml.repository.MessageRepository;
 import fr.inti.xml.repository.search.MessageSearchRepository;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -140,5 +143,31 @@ public class MessageResource {
         return StreamSupport
             .stream(messageSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+// mes webservices
+    //*********** methode pour créer un message
+    @PostMapping("/createmessage")
+    public ResponseEntity<Message> createMessage(@RequestBody Map<String,String> json) throws URISyntaxException {
+    Conversation conversation=new Conversation();
+    conversation.setId(json.get("id"));
+    conversation.setIdUser1(json.get("idUser1"));
+        conversation.setIdUser2(json.get("idUser2"));
+        Message messagef=new Message();
+        messagef.setIdUserSender(json.get("idUserSender"));
+        messagef.setIdUserRecipient(json.get("idUserRecipient"));
+        messagef.setContentMessage(json.get("contentMessage"));
+        messagef.setConversation(conversation);
+        messagef.setDateMessage(Instant.now());
+        messagef.setReadMessage(false);
+
+        log.debug("REST request to save Message : {}", messagef);
+        if (messagef.getId() != null) {
+            throw new BadRequestAlertException("A new message cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Message result = messageRepository.save(messagef);
+        messageSearchRepository.save(result);
+        return ResponseEntity.created(new URI("/api/messages/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 }

@@ -1,8 +1,10 @@
 package fr.inti.xml.web.rest;
 
 import fr.inti.xml.domain.Conversation;
+import fr.inti.xml.domain.Message;
 import fr.inti.xml.repository.ConversationRepository;
 import fr.inti.xml.repository.search.ConversationSearchRepository;
+import fr.inti.xml.service.UserService;
 import fr.inti.xml.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -17,6 +19,8 @@ import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -207,5 +211,22 @@ public class ConversationResource {
 
         Optional<Conversation> conversation = conversationRepository.findById(conversationtampon.getId());
         return ResponseUtil.wrapOrNotFound(conversation);
+    }
+    //*********
+    @PutMapping("/ajoutermessage")
+    public ResponseEntity<Conversation> ajouterMessage(@RequestBody Message message) throws URISyntaxException {
+        Conversation conversationtampon=null;
+        conversationtampon=conversationRepository.findOneById(message.getConversation().getId());
+if( conversationtampon.getId()==null){
+    throw new BadRequestAlertException("Invalid request", ENTITY_NAME, "the conversation doesn't exist");
+
+}
+        conversationtampon.addMessages(message);
+
+        Conversation result = conversationRepository.save(conversationtampon);
+        conversationSearchRepository.save(result);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, conversationtampon.getId().toString()))
+            .body(result);
     }
 }
