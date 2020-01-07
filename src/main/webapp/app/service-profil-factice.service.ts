@@ -19,7 +19,24 @@ export class ServiceProfilFacticeService {
       mail: 'mail',
       preference: ['femme', 'gout1', 'gout2', 'age'],
       age: '18',
-      pseudo: 'dd'
+      pseudo: 'dd',
+      notifs: true,
+      match: ['message1', 'message2']
+    },
+
+    {
+      nom: 'nom6',
+      prenom: 'prenom6',
+      messages: 'message6',
+      photo: '/content/images/steph.jpg',
+      sexe: 'femme',
+      mdp: 'mdp2',
+      mail: 'mail',
+      preference: ['homme', 'gout5', 'gout2', 'age'],
+      age: '19',
+      pseudo: 'ff',
+      notifs: false,
+      match: ['message3', 'message4']
     }
   ];
   constructor() {}

@@ -7,10 +7,12 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { LoginService } from 'app/core/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
+import { ServiceProfilFacticeService } from 'app/service-profil-factice.service';
 
 @Component({
   selector: 'jhi-navbar',
   templateUrl: './navbar.component.html',
+  providers: [ServiceProfilFacticeService],
   styleUrls: ['navbar.scss']
 })
 export class NavbarComponent implements OnInit {
@@ -19,16 +21,19 @@ export class NavbarComponent implements OnInit {
   swaggerEnabled: boolean;
   modalRef: NgbModalRef;
   version: string;
+  tab: any[];
 
   constructor(
     private loginService: LoginService,
     private accountService: AccountService,
     private loginModalService: LoginModalService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private servP: ServiceProfilFacticeService
   ) {
     this.version = VERSION ? (VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION) : '';
     this.isNavbarCollapsed = true;
+    this.tab = servP.tab;
   }
 
   ngOnInit() {

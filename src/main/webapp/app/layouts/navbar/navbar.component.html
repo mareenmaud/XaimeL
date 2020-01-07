@@ -1,3 +1,12 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<script>
+$(function () {
+    $('[data-toggle="popover"]').popover()
+
+  })
+</script>
+
 <nav class="navbar navbar-dark navbar-expand-md bg-dark">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
         <span class="logo-img"></span>
@@ -32,8 +41,12 @@
                 <a class="nav-link"  (click)="collapseNavbar()">
                     <span>
                         <fa-icon icon=""></fa-icon>
-                        <span>Notifications </span>
-                    </span>
+                        
+                        <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
+                            ngbPopover="{{tab[4].match[0]}}" id ="bout">
+                            Notifications
+                        </button>
+                    
                 </a>
             </li>
 
