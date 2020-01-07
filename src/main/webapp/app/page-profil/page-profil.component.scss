@@ -1,7 +1,9 @@
 h2 {
   color: snow;
   font-family: 'vladimir';
-  font-size: 40px;
+  text-transform: lowercase;
+  text-transform: capitalize;
+  font-size: 80px;
   font-style: italic;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 2px #141414, 1px 1px 3px #141414,
     1px 1px 5px #141414, 1px 1px 7px #141414, 1px 1px 10px #141414, 1px 1px 12px #141414, 1px 1px 18px #141414;
@@ -9,7 +11,9 @@ h2 {
 }
 
 .presequipe {
-  margin: 50px 100px 2em 0;
+  margin-top: 2px;
+  margin-right: 400px;
+  margin-left: 400px;
 }
 
 .teamLeader {
@@ -60,5 +64,18 @@ h4 {
   transform: scale(1.25);
 }
 
-.container {
+.pres {
+  color: #e7f0f7;
+  font-size: 25px;
+  margin-top: 60px;
+  margin-left: 400px;
+  margin-right: 400px;
+  font-style: italic;
+  text-align: justify;
+  -moz-text-align-last: center;
+  text-align-last: center;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }
