@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -140,5 +141,71 @@ public class ConversationResource {
         return StreamSupport
             .stream(conversationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    // ************** mes webservices
+    // créer une conversation à partir des id des deux utilisateurs
+    @PostMapping("/createconversation")
+    public ResponseEntity<Conversation> createConversation(@RequestParam String id_user1,@RequestParam String id_user2) throws URISyntaxException {
+        Conversation conversation = new Conversation();
+        conversation.setIdUser1(id_user1);
+        conversation.setIdUser2(id_user2);
+        Conversation conversationexist=null;
+        List<Conversation> conversations1= conversationRepository.findAllByIdUser1(id_user1);
+        List<Conversation> conversations2=conversationRepository.findAllByIdUser2(id_user2);
+        for (Conversation i : conversations1){
+            if (conversations2.contains(i)) {
+                conversationexist = conversation;
+            }
+        }
+        List<Conversation> conversations3= conversationRepository.findAllByIdUser1(id_user2);
+        List<Conversation> conversations4=conversationRepository.findAllByIdUser2(id_user1);
+        for (Conversation i : conversations3){
+            if (conversations4.contains(i)) {
+                conversationexist = conversation;
+            }
+        }
+    log.debug("REST request to save Conversation : {}", conversation);
+        if (conversation.getId() != null) {
+            throw new BadRequestAlertException("A new conversation cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        else if( conversationexist!=null ){
+            throw new BadRequestAlertException("A new conversation cannot already have an ID", ENTITY_NAME, "these users have already a conversation");
+
+
+        }
+        Conversation result = conversationRepository.save(conversation);
+        conversationSearchRepository.save(result);
+        return ResponseEntity.created(new URI("/api/conversations/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+// trouver une conversation a partir des id des deux utilisateurs
+    @GetMapping("/conversationuser")
+    public ResponseEntity<Conversation> getConversationUser(@RequestParam String id_user1,@RequestParam String id_user2) {
+        Conversation conversationtampon=null;
+        List<Conversation> conversations1= conversationRepository.findAllByIdUser1(id_user1);
+        List<Conversation> conversations2=conversationRepository.findAllByIdUser2(id_user2);
+        for (Conversation i : conversations1){
+            for (Conversation j : conversations2) {
+                if(i.equals(j)){
+                    conversationtampon=i;
+                }
+
+            }
+        }
+        List<Conversation> conversations3= conversationRepository.findAllByIdUser1(id_user2);
+        List<Conversation> conversations4=conversationRepository.findAllByIdUser2(id_user1);
+        for (Conversation i : conversations3){
+            for (Conversation j : conversations4) {
+                if(i.equals(j)){
+                    conversationtampon=i;
+                }
+
+            }
+        }
+
+        Optional<Conversation> conversation = conversationRepository.findById(conversationtampon.getId());
+        return ResponseUtil.wrapOrNotFound(conversation);
     }
 }
