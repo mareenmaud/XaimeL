@@ -5,7 +5,7 @@ import fr.inti.xml.domain.PsychoProfile;
 import fr.inti.xml.domain.User;
 import fr.inti.xml.repository.ExtendedUserRepository;
 import fr.inti.xml.repository.UserRepository;
-import fr.inti.xml.repository.search.ExtendedUserSearchRepository;
+
 import fr.inti.xml.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -23,7 +23,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+
 
 /**
  * REST controller for managing {@link fr.inti.xml.domain.ExtendedUser}.
@@ -43,14 +43,14 @@ public class ExtendedUserResource {
 
     private final ExtendedUserRepository extendedUserRepository;
 
-    private final ExtendedUserSearchRepository extendedUserSearchRepository;
+
 
     private final UserRepository userRepository;
 
-    public ExtendedUserResource(ExtendedUserRepository extendedUserRepository, ExtendedUserSearchRepository extendedUserSearchRepository,
+    public ExtendedUserResource(ExtendedUserRepository extendedUserRepository,
                                 UserRepository userRepository) {
         this.extendedUserRepository = extendedUserRepository;
-        this.extendedUserSearchRepository = extendedUserSearchRepository;
+
         this.userRepository = userRepository;
     }
 
@@ -68,7 +68,6 @@ public class ExtendedUserResource {
             throw new BadRequestAlertException("A new extendedUser cannot already have an ID", ENTITY_NAME, "idexists");
         }
         ExtendedUser result = extendedUserRepository.save(extendedUser);
-        extendedUserSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/extended-users/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -90,7 +89,6 @@ public class ExtendedUserResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         ExtendedUser result = extendedUserRepository.save(extendedUser);
-        extendedUserSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, extendedUser.getId().toString()))
             .body(result);
@@ -131,24 +129,10 @@ public class ExtendedUserResource {
     public ResponseEntity<Void> deleteExtendedUser(@PathVariable String id) {
         log.debug("REST request to delete ExtendedUser : {}", id);
         extendedUserRepository.deleteById(id);
-        extendedUserSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/extended-users?query=:query} : search for the extendedUser corresponding
-     * to the query.
-     *
-     * @param query the query of the extendedUser search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/extended-users")
-    public List<ExtendedUser> searchExtendedUsers(@RequestParam String query) {
-        log.debug("REST request to search ExtendedUsers for query {}", query);
-        return StreamSupport
-            .stream(extendedUserSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
+
 
     /**
      * Computes psychological distance between two users

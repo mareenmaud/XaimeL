@@ -3,7 +3,7 @@ package fr.inti.xml.web.rest;
 import fr.inti.xml.XmLApp;
 import fr.inti.xml.domain.Message;
 import fr.inti.xml.repository.MessageRepository;
-import fr.inti.xml.repository.search.MessageSearchRepository;
+
 import fr.inti.xml.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ import java.util.List;
 
 import static fr.inti.xml.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -56,13 +56,7 @@ public class MessageResourceIT {
     @Autowired
     private MessageRepository messageRepository;
 
-    /**
-     * This repository is mocked in the fr.inti.xml.repository.search test package.
-     *
-     * @see fr.inti.xml.repository.search.MessageSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private MessageSearchRepository mockMessageSearchRepository;
+
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -83,7 +77,7 @@ public class MessageResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MessageResource messageResource = new MessageResource(messageRepository, mockMessageSearchRepository);
+        final MessageResource messageResource = new MessageResource(messageRepository);
         this.restMessageMockMvc = MockMvcBuilders.standaloneSetup(messageResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -149,8 +143,6 @@ public class MessageResourceIT {
         assertThat(testMessage.getDateMessage()).isEqualTo(DEFAULT_DATE_MESSAGE);
         assertThat(testMessage.isReadMessage()).isEqualTo(DEFAULT_READ_MESSAGE);
 
-        // Validate the Message in Elasticsearch
-        verify(mockMessageSearchRepository, times(1)).save(testMessage);
     }
 
     @Test
@@ -170,8 +162,6 @@ public class MessageResourceIT {
         List<Message> messageList = messageRepository.findAll();
         assertThat(messageList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the Message in Elasticsearch
-        verify(mockMessageSearchRepository, times(0)).save(message);
     }
 
 
@@ -191,7 +181,7 @@ public class MessageResourceIT {
             .andExpect(jsonPath("$.[*].dateMessage").value(hasItem(DEFAULT_DATE_MESSAGE.toString())))
             .andExpect(jsonPath("$.[*].readMessage").value(hasItem(DEFAULT_READ_MESSAGE.booleanValue())));
     }
-    
+
     @Test
     public void getMessage() throws Exception {
         // Initialize the database
@@ -247,8 +237,6 @@ public class MessageResourceIT {
         assertThat(testMessage.getDateMessage()).isEqualTo(UPDATED_DATE_MESSAGE);
         assertThat(testMessage.isReadMessage()).isEqualTo(UPDATED_READ_MESSAGE);
 
-        // Validate the Message in Elasticsearch
-        verify(mockMessageSearchRepository, times(1)).save(testMessage);
     }
 
     @Test
@@ -267,8 +255,6 @@ public class MessageResourceIT {
         List<Message> messageList = messageRepository.findAll();
         assertThat(messageList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the Message in Elasticsearch
-        verify(mockMessageSearchRepository, times(0)).save(message);
     }
 
     @Test
@@ -287,27 +273,8 @@ public class MessageResourceIT {
         List<Message> messageList = messageRepository.findAll();
         assertThat(messageList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the Message in Elasticsearch
-        verify(mockMessageSearchRepository, times(1)).deleteById(message.getId());
     }
 
-    @Test
-    public void searchMessage() throws Exception {
-        // Initialize the database
-        messageRepository.save(message);
-        when(mockMessageSearchRepository.search(queryStringQuery("id:" + message.getId())))
-            .thenReturn(Collections.singletonList(message));
-        // Search the message
-        restMessageMockMvc.perform(get("/api/_search/messages?query=id:" + message.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(message.getId())))
-            .andExpect(jsonPath("$.[*].idUserSender").value(hasItem(DEFAULT_ID_USER_SENDER)))
-            .andExpect(jsonPath("$.[*].idUserRecipient").value(hasItem(DEFAULT_ID_USER_RECIPIENT)))
-            .andExpect(jsonPath("$.[*].contentMessage").value(hasItem(DEFAULT_CONTENT_MESSAGE)))
-            .andExpect(jsonPath("$.[*].dateMessage").value(hasItem(DEFAULT_DATE_MESSAGE.toString())))
-            .andExpect(jsonPath("$.[*].readMessage").value(hasItem(DEFAULT_READ_MESSAGE.booleanValue())));
-    }
 
     @Test
     public void equalsVerifier() throws Exception {

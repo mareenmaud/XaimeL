@@ -3,20 +3,17 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 
 /**
  * A PsychoProfile.
  */
 @Document(collection = "psycho_profile")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "psychoprofile")
 public class PsychoProfile implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private String id;
 
     @Field("summary_profile")
