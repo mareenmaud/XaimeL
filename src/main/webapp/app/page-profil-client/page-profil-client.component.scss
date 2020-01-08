@@ -4,7 +4,7 @@ body {
 
 .titreProfil {
   text-align: center;
-  font-size: 60px;
+  font-size: 400%;
   color: snow;
   font-family: pixeled-webfont;
   text-transform: lowercase;
@@ -15,8 +15,8 @@ body {
 }
 
 #photo {
-  height: 350px;
-  width: 350px;
+  height: 100%;
+  width: 100%;
   float: left;
   margin-left: 70%;
   border: 5px outset white;
@@ -24,7 +24,7 @@ body {
 
 .descriptif-profil {
   float: right;
-  font-size: 30px;
+  font-size: 210%;
   color: snow;
   margin-top: 4px;
   line-height: 140%;
@@ -37,7 +37,7 @@ body {
   background-color: rgba(255, 255, 255, 0.24);
   border-radius: 100px;
   color: black;
-  font-size: 30px;
+  font-size: 150%;
   padding: 3%;
 }
 
@@ -51,12 +51,12 @@ ul#cemenu li {
 
 .preferences {
   margin-left: 2%;
-  font-size: 30px;
+  font-size: 150%;
   line-height: 200%;
 }
 
 .titrepref {
-  font-size: 40px;
+  font-size: 160%;
   font-style: bold;
   text-decoration: underline black;
   margin-bottom: 2%;
