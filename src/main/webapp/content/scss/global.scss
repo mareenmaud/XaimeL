@@ -126,9 +126,7 @@ Custom alerts for notification
   .jhi-toast {
     position: fixed;
     width: 100%;
-    &.left {
-      left: 5px;
-    }
+
     &.right {
       right: 5px;
     }
@@ -216,15 +214,15 @@ body {
 }
 .close {
   color: white;
-  margin-left: 65%;
+  margin-left: 95%;
 }
 
 .card {
-  height: 500px;
+  height: 60%px;
   margin-top: auto;
   margin-bottom: auto;
-  width: 1000px;
-  background-color: rgb(128, 0, 128) !important;
+  width: 100%;
+  background-color: rgb(148, 0, 211) !important;
 }
 
 .social_icon span:hover {
