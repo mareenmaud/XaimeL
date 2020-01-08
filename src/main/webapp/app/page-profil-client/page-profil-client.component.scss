@@ -1,3 +1,7 @@
+body {
+  width: 100%;
+}
+
 .titreProfil {
   text-align: center;
   font-size: 60px;
@@ -24,7 +28,8 @@
   color: snow;
   margin-top: 4px;
   line-height: 140%;
-  line-margin: 100%;
+  line-margin: 150%;
+  margin-left: 100%;
 }
 
 .ensemble-preferences {

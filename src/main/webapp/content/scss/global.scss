@@ -202,6 +202,7 @@ body {
   background-repeat: no-repeat;
   height: 100%;
   font-family: 'Segoe UI';
+  font-color: white;
 }
 
 .container {
@@ -213,13 +214,17 @@ body {
 .d-flex justify-content-center h-100 {
   background-color: #00fffc;
 }
+.close {
+  color: white;
+  margin-left: 65%;
+}
 
 .card {
   height: 500px;
   margin-top: auto;
   margin-bottom: auto;
   width: 1000px;
-  background-color: rgb(186, 85, 211) !important;
+  background-color: rgb(128, 0, 128) !important;
 }
 
 .social_icon span:hover {
@@ -228,7 +233,7 @@ body {
 }
 
 .card-header h3 {
-  color: black;
+  color: white;
 }
 
 .social_icon {
@@ -262,7 +267,7 @@ input:focus {
 
 .login_btn {
   color: black;
-  background-color: #ffc312;
+  background-color: #ee82ee;
   width: 100px;
 }
 
