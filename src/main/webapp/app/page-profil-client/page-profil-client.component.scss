@@ -22,16 +22,47 @@
   float: right;
   font-size: 30px;
   color: snow;
-  margin-top: 10px;
+  margin-top: 4px;
+  line-height: 140%;
+  line-margin: 100%;
 }
 
 .ensemble-preferences {
-  margin: 250px;
+  margin: 10%;
   background-color: rgba(255, 255, 255, 0.24);
+  border-radius: 100px;
   color: black;
   font-size: 30px;
+  padding: 3%;
 }
 
 ul#cemenu li {
   display: inline;
+}
+
+.prenom {
+  margin-left: 5em;
+}
+
+.preferences {
+  margin-left: 2%;
+  font-size: 30px;
+  line-height: 200%;
+}
+
+.titrepref {
+  font-size: 40px;
+  font-style: bold;
+  text-decoration: underline black;
+  margin-bottom: 2%;
+}
+
+#logosouris {
+  width: 4%;
+  height: 4%;
+}
+
+#logosexe {
+  width: 4%;
+  height: 4%;
 }

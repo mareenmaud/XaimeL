@@ -4,33 +4,46 @@
             <img src={{tab[4].photo}} id="photo">
     </div>
 
-    <div class = "col-md-5">
+    <div class = "col-md-6">
         <div class="descriptif-profil">
         <label>Pseudo: {{tab[4].pseudo}}</label>
             <br>
-        <label>Nom: {{tab[4].nom}}</label> <label>Prenom: {{tab[4].prenom}}</label>
+        <label>Nom: {{tab[4].nom}}</label>   <span class="prenom"><label>Prenom: {{tab[4].prenom}}</label></span>
             <br>
         <label>Age: {{tab[4].age}}</label>
+            <br>
+            <label>Sexe: {{tab[4].sexe}}</label>
             <br>
         <label>Mail: {{tab[4].mail}}</label>
             <br>
         <label>Date d'inscription: Date</label>
             <br>
-        <label>Note : tristitude/5</label></div>
+        <label>Note : {{tab[4].note}}/5</label></div>
     </div>
 </div>
 <div class="ensemble-preferences">
-<p>Mes preferences:</p>
+    <div class="preferences">
+
+        <div class="titrepref"> <img src="../../content/images/logo-souris.png" id="logosouris"> <label>Mes preferences:</label></div>
 <label>Gouts:</label>
-<ul id="cemenu">
+<ul id="hobbies">
 <li *ngFor= "let item of tab[4].preference" >
 <a>{{item}}</a>
 </li>
 </ul>
-<label>Sexe: {{tab[4].sexe}}</label>
+        <label> Intéressé par :</label>
+        <img src="../../content/images/logo-sexe.png" id="logosexe">
+        <label>{{tab[4].interest}}</label>
+    </div>
     </div>
 
 
+
+
+
+
+
+<!--
 
 <div class = "row">
     <div class = "col-lg-4">
@@ -75,7 +88,7 @@
             </li>
             </ul>
 
-
+-->
 
      </div>
 </div>
