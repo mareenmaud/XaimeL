@@ -1,18 +1,18 @@
     <ul>
-        <li *ngFor="let prof of tab;let i = index">
-            
+        <li *ngFor="let profil of tab;let i = index">
+
             <p>
             <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample{{i}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-              {{prof.nom}}
+              {{profil.nom}}
             </a>
           </p>
-          
+
           <div class="collapse" id="collapseExample{{i}}">
             <div class="card card-body">
-              {{prof.messages}}
+              {{profil.messages}}
             </div>
           </div>
-          
+
         </li>
     </ul>
 
