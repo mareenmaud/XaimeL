@@ -3,7 +3,7 @@ package fr.inti.xml.service;
 import fr.inti.xml.XmLApp;
 import fr.inti.xml.config.Constants;
 import fr.inti.xml.domain.User;
-import fr.inti.xml.repository.search.UserSearchRepository;
+
 import fr.inti.xml.repository.UserRepository;
 import fr.inti.xml.service.dto.UserDTO;
 import fr.inti.xml.service.util.RandomUtil;
@@ -50,13 +50,6 @@ public class UserServiceIT {
     @Autowired
     private UserService userService;
 
-    /**
-     * This repository is mocked in the fr.inti.xml.repository.search test package.
-     *
-     * @see fr.inti.xml.repository.search.UserSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private UserSearchRepository mockUserSearchRepository;
 
     private User user;
 
@@ -157,8 +150,6 @@ public class UserServiceIT {
         users = userRepository.findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(now.minus(3, ChronoUnit.DAYS));
         assertThat(users).isEmpty();
 
-        // Verify Elasticsearch mock
-        verify(mockUserSearchRepository, times(1)).delete(user);
     }
 
     @Test
@@ -174,8 +165,6 @@ public class UserServiceIT {
         Optional<User> maybeDbUser = userRepository.findById(dbUser.getId());
         assertThat(maybeDbUser).contains(dbUser);
 
-        // Verify Elasticsearch mock
-        verify(mockUserSearchRepository, never()).delete(user);
     }
 
     @Test

@@ -3,7 +3,7 @@ package fr.inti.xml.web.rest;
 import fr.inti.xml.domain.Conversation;
 import fr.inti.xml.domain.Message;
 import fr.inti.xml.repository.MessageRepository;
-import fr.inti.xml.repository.search.MessageSearchRepository;
+
 import fr.inti.xml.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+
 
 /**
  * REST controller for managing {@link fr.inti.xml.domain.Message}.
@@ -42,11 +42,11 @@ public class MessageResource {
 
     private final MessageRepository messageRepository;
 
-    private final MessageSearchRepository messageSearchRepository;
 
-    public MessageResource(MessageRepository messageRepository, MessageSearchRepository messageSearchRepository) {
+
+    public MessageResource(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
-        this.messageSearchRepository = messageSearchRepository;
+
     }
 
     /**
@@ -63,7 +63,7 @@ public class MessageResource {
             throw new BadRequestAlertException("A new message cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Message result = messageRepository.save(message);
-        messageSearchRepository.save(result);
+
         return ResponseEntity.created(new URI("/api/messages/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -85,7 +85,7 @@ public class MessageResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Message result = messageRepository.save(message);
-        messageSearchRepository.save(result);
+
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, message.getId().toString()))
             .body(result);
@@ -126,24 +126,11 @@ public class MessageResource {
     public ResponseEntity<Void> deleteMessage(@PathVariable String id) {
         log.debug("REST request to delete Message : {}", id);
         messageRepository.deleteById(id);
-        messageSearchRepository.deleteById(id);
+
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/messages?query=:query} : search for the message corresponding
-     * to the query.
-     *
-     * @param query the query of the message search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/messages")
-    public List<Message> searchMessages(@RequestParam String query) {
-        log.debug("REST request to search Messages for query {}", query);
-        return StreamSupport
-            .stream(messageSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
+
 // mes webservices
     //*********** methode pour créer un message
     //http://localhost:8082/api/createmessage
@@ -167,7 +154,7 @@ public class MessageResource {
             throw new BadRequestAlertException("A new message cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Message result = messageRepository.save(messagef);
-        messageSearchRepository.save(result);
+
         return ResponseEntity.created(new URI("/api/messages/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -186,7 +173,7 @@ public ResponseEntity<Message> messagelu(@RequestParam String id_message) throws
     message.setReadMessage(true);
     messageRepository.delete(message);
     Message result = messageRepository.save(message);
-    messageSearchRepository.save(result);
+
     return ResponseEntity.ok()
         .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, message.getId().toString()))
         .body(result);

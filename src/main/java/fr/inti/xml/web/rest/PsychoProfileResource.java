@@ -2,7 +2,7 @@ package fr.inti.xml.web.rest;
 
 import fr.inti.xml.domain.PsychoProfile;
 import fr.inti.xml.repository.PsychoProfileRepository;
-import fr.inti.xml.repository.search.PsychoProfileSearchRepository;
+
 import fr.inti.xml.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+
 
 /**
  * REST controller for managing {@link fr.inti.xml.domain.PsychoProfile}.
@@ -39,11 +39,10 @@ public class PsychoProfileResource {
 
     private final PsychoProfileRepository psychoProfileRepository;
 
-    private final PsychoProfileSearchRepository psychoProfileSearchRepository;
 
-    public PsychoProfileResource(PsychoProfileRepository psychoProfileRepository, PsychoProfileSearchRepository psychoProfileSearchRepository) {
+
+    public PsychoProfileResource(PsychoProfileRepository psychoProfileRepository) {
         this.psychoProfileRepository = psychoProfileRepository;
-        this.psychoProfileSearchRepository = psychoProfileSearchRepository;
     }
 
     /**
@@ -60,7 +59,6 @@ public class PsychoProfileResource {
             throw new BadRequestAlertException("A new psychoProfile cannot already have an ID", ENTITY_NAME, "idexists");
         }
         PsychoProfile result = psychoProfileRepository.save(psychoProfile);
-        psychoProfileSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/psycho-profiles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +80,6 @@ public class PsychoProfileResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         PsychoProfile result = psychoProfileRepository.save(psychoProfile);
-        psychoProfileSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, psychoProfile.getId().toString()))
             .body(result);
@@ -123,22 +120,8 @@ public class PsychoProfileResource {
     public ResponseEntity<Void> deletePsychoProfile(@PathVariable String id) {
         log.debug("REST request to delete PsychoProfile : {}", id);
         psychoProfileRepository.deleteById(id);
-        psychoProfileSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/psycho-profiles?query=:query} : search for the psychoProfile corresponding
-     * to the query.
-     *
-     * @param query the query of the psychoProfile search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/psycho-profiles")
-    public List<PsychoProfile> searchPsychoProfiles(@RequestParam String query) {
-        log.debug("REST request to search PsychoProfiles for query {}", query);
-        return StreamSupport
-            .stream(psychoProfileSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
+
 }

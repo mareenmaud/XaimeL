@@ -3,7 +3,7 @@ package fr.inti.xml.web.rest;
 import fr.inti.xml.XmLApp;
 import fr.inti.xml.domain.PsychoProfile;
 import fr.inti.xml.repository.PsychoProfileRepository;
-import fr.inti.xml.repository.search.PsychoProfileSearchRepository;
+
 import fr.inti.xml.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +24,7 @@ import java.util.List;
 
 import static fr.inti.xml.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -54,13 +54,7 @@ public class PsychoProfileResourceIT {
     @Autowired
     private PsychoProfileRepository psychoProfileRepository;
 
-    /**
-     * This repository is mocked in the fr.inti.xml.repository.search test package.
-     *
-     * @see fr.inti.xml.repository.search.PsychoProfileSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private PsychoProfileSearchRepository mockPsychoProfileSearchRepository;
+
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -81,7 +75,7 @@ public class PsychoProfileResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PsychoProfileResource psychoProfileResource = new PsychoProfileResource(psychoProfileRepository, mockPsychoProfileSearchRepository);
+        final PsychoProfileResource psychoProfileResource = new PsychoProfileResource(psychoProfileRepository);
         this.restPsychoProfileMockMvc = MockMvcBuilders.standaloneSetup(psychoProfileResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -147,8 +141,6 @@ public class PsychoProfileResourceIT {
         assertThat(testPsychoProfile.getJungValue3()).isEqualTo(DEFAULT_JUNG_VALUE_3);
         assertThat(testPsychoProfile.getJungValue4()).isEqualTo(DEFAULT_JUNG_VALUE_4);
 
-        // Validate the PsychoProfile in Elasticsearch
-        verify(mockPsychoProfileSearchRepository, times(1)).save(testPsychoProfile);
     }
 
     @Test
@@ -168,8 +160,6 @@ public class PsychoProfileResourceIT {
         List<PsychoProfile> psychoProfileList = psychoProfileRepository.findAll();
         assertThat(psychoProfileList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the PsychoProfile in Elasticsearch
-        verify(mockPsychoProfileSearchRepository, times(0)).save(psychoProfile);
     }
 
 
@@ -189,7 +179,7 @@ public class PsychoProfileResourceIT {
             .andExpect(jsonPath("$.[*].jungValue3").value(hasItem(DEFAULT_JUNG_VALUE_3.doubleValue())))
             .andExpect(jsonPath("$.[*].jungValue4").value(hasItem(DEFAULT_JUNG_VALUE_4.doubleValue())));
     }
-    
+
     @Test
     public void getPsychoProfile() throws Exception {
         // Initialize the database
@@ -245,8 +235,6 @@ public class PsychoProfileResourceIT {
         assertThat(testPsychoProfile.getJungValue3()).isEqualTo(UPDATED_JUNG_VALUE_3);
         assertThat(testPsychoProfile.getJungValue4()).isEqualTo(UPDATED_JUNG_VALUE_4);
 
-        // Validate the PsychoProfile in Elasticsearch
-        verify(mockPsychoProfileSearchRepository, times(1)).save(testPsychoProfile);
     }
 
     @Test
@@ -265,8 +253,6 @@ public class PsychoProfileResourceIT {
         List<PsychoProfile> psychoProfileList = psychoProfileRepository.findAll();
         assertThat(psychoProfileList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the PsychoProfile in Elasticsearch
-        verify(mockPsychoProfileSearchRepository, times(0)).save(psychoProfile);
     }
 
     @Test
@@ -285,26 +271,6 @@ public class PsychoProfileResourceIT {
         List<PsychoProfile> psychoProfileList = psychoProfileRepository.findAll();
         assertThat(psychoProfileList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the PsychoProfile in Elasticsearch
-        verify(mockPsychoProfileSearchRepository, times(1)).deleteById(psychoProfile.getId());
-    }
-
-    @Test
-    public void searchPsychoProfile() throws Exception {
-        // Initialize the database
-        psychoProfileRepository.save(psychoProfile);
-        when(mockPsychoProfileSearchRepository.search(queryStringQuery("id:" + psychoProfile.getId())))
-            .thenReturn(Collections.singletonList(psychoProfile));
-        // Search the psychoProfile
-        restPsychoProfileMockMvc.perform(get("/api/_search/psycho-profiles?query=id:" + psychoProfile.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(psychoProfile.getId())))
-            .andExpect(jsonPath("$.[*].summaryProfile").value(hasItem(DEFAULT_SUMMARY_PROFILE)))
-            .andExpect(jsonPath("$.[*].jungValue1").value(hasItem(DEFAULT_JUNG_VALUE_1.doubleValue())))
-            .andExpect(jsonPath("$.[*].jungValue2").value(hasItem(DEFAULT_JUNG_VALUE_2.doubleValue())))
-            .andExpect(jsonPath("$.[*].jungValue3").value(hasItem(DEFAULT_JUNG_VALUE_3.doubleValue())))
-            .andExpect(jsonPath("$.[*].jungValue4").value(hasItem(DEFAULT_JUNG_VALUE_4.doubleValue())));
     }
 
     @Test
