@@ -4,10 +4,10 @@
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
-                <h4>Connexion</h4>
+                <div class = "row">
                 <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
                 </button>
-
+            </div>
             </div>
             <div class="card-body">
                 <div class="alert alert-danger" *ngIf="authenticationError">
@@ -38,11 +38,11 @@
             </div>
             <div class="card-footer">
                 <div class="d-flex justify-content-center links">
-            <a class="alert-link" (click)="register()">Pas encore parmi nous ? inscris toi !</a>
+            <a class="alert-link" (click)="register()">Pas encore parmi nous ? inscris toi maintenant !</a>
                 </div>
                 <br>
-                <div class="d-flex justify-content-center">
-                    <a class="alert-link" (click)="requestResetPassword()">J'ai perdu mon mot de passe</a>
+                <div class="d-flex justify-content-center links">
+                    <a class="alert-link" (click)="requestResetPassword()">J'ai perdu mon mot de passe...</a>
                 </div>
             </div>
         </div>
