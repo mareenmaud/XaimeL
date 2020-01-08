@@ -25,11 +25,10 @@
 <br>
 <br>
 <div [ngSwitch]="isAuthenticated()">
-    <div *ngSwitchCase="false"><div class *ngSwitchCase="true">
+    <div *ngSwitchCase="true">
         <span id="home-logged-message" *ngIf="account">
             <h5>Tu es connecté avec le compte de "{{account.login}}".</h5>
         </span>
-        </div>
     </div>
 </div>
 
