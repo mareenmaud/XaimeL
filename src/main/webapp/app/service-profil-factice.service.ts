@@ -21,7 +21,9 @@ export class ServiceProfilFacticeService {
       age: '18',
       pseudo: 'dd',
       notifs: true,
-      match: ['message1', 'message2']
+      match: ['message1', 'message2'],
+      note: 3,
+      interest: 'femme'
     },
 
     {
