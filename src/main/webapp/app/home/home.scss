@@ -65,7 +65,7 @@ body {
   overflow: visible;
 }
 
-.card {
+.modal-header {
   height: 420px;
   margin-top: auto;
   margin-bottom: auto;
@@ -78,8 +78,8 @@ body {
   cursor: pointer;
 }
 
-.card-header h3 {
-  color: white;
+.modal-header h3 {
+  color: black;
 }
 
 .social_icon {

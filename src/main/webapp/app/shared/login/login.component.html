@@ -1,43 +1,49 @@
-<div class="modal-header">
-    <h4 class="modal-title">Sign in</h4>
-    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
-    </button>
-</div>
-<div class="modal-body">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="alert alert-danger" *ngIf="authenticationError">
-                <strong>Failed to sign in!</strong> Please check your credentials and try again.
+
+
+
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h4>Connexion</h4>
+                <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
+                </button>
+
             </div>
-        </div>
-        <div class="col-md-8">
-            <form class="form" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
-                <div class="form-group">
-                    <label class="username-label" for="username">Login</label>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Your username"
-                           formControlName="username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Your password"
-                           formControlName="password">
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label" for="rememberMe">
-                        <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe">
-                        <span>Remember me</span>
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
-            </form>
-            <p></p>
-            <div class="alert alert-warning">
-                <a class="alert-link" (click)="requestResetPassword()">Did you forget your password?</a>
+            <div class="card-body">
+                <div class="alert alert-danger" *ngIf="authenticationError">
+                <strong>Mauvaise identification</strong> Veuillez réessayer.
+                 </div>
+                <form  (ngSubmit)="login()" [formGroup]="loginForm">
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Pseudo" formControlName="username">
+
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Mot de passe" formControlName="password">
+                    </div>
+                    <div class=" align-items-center remember">
+                        <input type="checkbox" formControlName="rememberMe">Se souvenir de moi
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="submit" value="Connexion" routerLink ="connexion" class="btn btn-light">
+                    </div>
+                </form>
             </div>
-            <div class="alert alert-warning">
-                <span>You don't have an account yet?</span>
-                <a class="alert-link" (click)="register()">Register a new account</a>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center links">
+            <a class="alert-link" (click)="register()">Pas encore parmi nous ? inscris toi !</a>
+                </div>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <a class="alert-link" (click)="requestResetPassword()">J'ai perdu mon mot de passe</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
