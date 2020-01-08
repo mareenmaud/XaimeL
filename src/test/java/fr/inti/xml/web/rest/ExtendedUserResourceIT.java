@@ -4,7 +4,7 @@ import fr.inti.xml.XmLApp;
 import fr.inti.xml.domain.ExtendedUser;
 import fr.inti.xml.repository.ExtendedUserRepository;
 import fr.inti.xml.repository.UserRepository;
-import fr.inti.xml.repository.search.ExtendedUserSearchRepository;
+
 import fr.inti.xml.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ import java.util.List;
 
 import static fr.inti.xml.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -69,13 +69,7 @@ public class ExtendedUserResourceIT {
     @Autowired
     private ExtendedUserRepository extendedUserRepository;
 
-    /**
-     * This repository is mocked in the fr.inti.xml.repository.search test package.
-     *
-     * @see fr.inti.xml.repository.search.ExtendedUserSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ExtendedUserSearchRepository mockExtendedUserSearchRepository;
+
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -99,7 +93,7 @@ public class ExtendedUserResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ExtendedUserResource extendedUserResource = new ExtendedUserResource(extendedUserRepository, mockExtendedUserSearchRepository,
+        final ExtendedUserResource extendedUserResource = new ExtendedUserResource(extendedUserRepository,
             userRepository);
         this.restExtendedUserMockMvc = MockMvcBuilders.standaloneSetup(extendedUserResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -178,8 +172,6 @@ public class ExtendedUserResourceIT {
         assertThat(testExtendedUser.getHobbies()).isEqualTo(DEFAULT_HOBBIES);
         assertThat(testExtendedUser.getProfilePhotoURL()).isEqualTo(DEFAULT_PROFILE_PHOTO_URL);
 
-        // Validate the ExtendedUser in Elasticsearch
-        verify(mockExtendedUserSearchRepository, times(1)).save(testExtendedUser);
     }
 
     @Test
@@ -199,8 +191,6 @@ public class ExtendedUserResourceIT {
         List<ExtendedUser> extendedUserList = extendedUserRepository.findAll();
         assertThat(extendedUserList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the ExtendedUser in Elasticsearch
-        verify(mockExtendedUserSearchRepository, times(0)).save(extendedUser);
     }
 
 
@@ -292,8 +282,6 @@ public class ExtendedUserResourceIT {
         assertThat(testExtendedUser.getHobbies()).isEqualTo(UPDATED_HOBBIES);
         assertThat(testExtendedUser.getProfilePhotoURL()).isEqualTo(UPDATED_PROFILE_PHOTO_URL);
 
-        // Validate the ExtendedUser in Elasticsearch
-        verify(mockExtendedUserSearchRepository, times(1)).save(testExtendedUser);
     }
 
     @Test
@@ -312,8 +300,6 @@ public class ExtendedUserResourceIT {
         List<ExtendedUser> extendedUserList = extendedUserRepository.findAll();
         assertThat(extendedUserList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the ExtendedUser in Elasticsearch
-        verify(mockExtendedUserSearchRepository, times(0)).save(extendedUser);
     }
 
     @Test
@@ -332,31 +318,8 @@ public class ExtendedUserResourceIT {
         List<ExtendedUser> extendedUserList = extendedUserRepository.findAll();
         assertThat(extendedUserList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the ExtendedUser in Elasticsearch
-        verify(mockExtendedUserSearchRepository, times(1)).deleteById(extendedUser.getId());
     }
 
-    @Test
-    public void searchExtendedUser() throws Exception {
-        // Initialize the database
-        extendedUserRepository.save(extendedUser);
-        when(mockExtendedUserSearchRepository.search(queryStringQuery("id:" + extendedUser.getId())))
-            .thenReturn(Collections.singletonList(extendedUser));
-        // Search the extendedUser
-        restExtendedUserMockMvc.perform(get("/api/_search/extended-users?query=id:" + extendedUser.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(extendedUser.getId())))
-            .andExpect(jsonPath("$.[*].birthDate").value(hasItem(DEFAULT_BIRTH_DATE.toString())))
-            .andExpect(jsonPath("$.[*].memberSince").value(hasItem(DEFAULT_MEMBER_SINCE.toString())))
-            .andExpect(jsonPath("$.[*].locationLongitude").value(hasItem(DEFAULT_LOCATION_LONGITUDE.doubleValue())))
-            .andExpect(jsonPath("$.[*].locationLatitude").value(hasItem(DEFAULT_LOCATION_LATITUDE.doubleValue())))
-            .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER)))
-            .andExpect(jsonPath("$.[*].interest").value(hasItem(DEFAULT_INTEREST)))
-            .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.doubleValue())))
-            .andExpect(jsonPath("$.[*].hobbies").value(hasItem(DEFAULT_HOBBIES)))
-            .andExpect(jsonPath("$.[*].profilePhotoURL").value(hasItem(DEFAULT_PROFILE_PHOTO_URL)));
-    }
 
     @Test
     public void equalsVerifier() throws Exception {

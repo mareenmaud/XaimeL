@@ -3,7 +3,7 @@ package fr.inti.xml.web.rest;
 import fr.inti.xml.domain.Conversation;
 import fr.inti.xml.domain.Message;
 import fr.inti.xml.repository.ConversationRepository;
-import fr.inti.xml.repository.search.ConversationSearchRepository;
+
 import fr.inti.xml.service.UserService;
 import fr.inti.xml.web.rest.errors.BadRequestAlertException;
 
@@ -27,7 +27,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+
 
 /**
  * REST controller for managing {@link fr.inti.xml.domain.Conversation}.
@@ -45,11 +45,11 @@ public class ConversationResource {
 
     private final ConversationRepository conversationRepository;
 
-    private final ConversationSearchRepository conversationSearchRepository;
 
-    public ConversationResource(ConversationRepository conversationRepository, ConversationSearchRepository conversationSearchRepository) {
+
+    public ConversationResource(ConversationRepository conversationRepository) {
         this.conversationRepository = conversationRepository;
-        this.conversationSearchRepository = conversationSearchRepository;
+
     }
 
     /**
@@ -66,7 +66,6 @@ public class ConversationResource {
             throw new BadRequestAlertException("A new conversation cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Conversation result = conversationRepository.save(conversation);
-        conversationSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/conversations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -88,7 +87,6 @@ public class ConversationResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Conversation result = conversationRepository.save(conversation);
-        conversationSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, conversation.getId().toString()))
             .body(result);
@@ -129,24 +127,11 @@ public class ConversationResource {
     public ResponseEntity<Void> deleteConversation(@PathVariable String id) {
         log.debug("REST request to delete Conversation : {}", id);
         conversationRepository.deleteById(id);
-        conversationSearchRepository.deleteById(id);
+
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/conversations?query=:query} : search for the conversation corresponding
-     * to the query.
-     *
-     * @param query the query of the conversation search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/conversations")
-    public List<Conversation> searchConversations(@RequestParam String query) {
-        log.debug("REST request to search Conversations for query {}", query);
-        return StreamSupport
-            .stream(conversationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
+
 
     // ************** mes webservices
     // créer une conversation à partir des id des deux utilisateurs
@@ -181,7 +166,6 @@ public class ConversationResource {
 
         }
         Conversation result = conversationRepository.save(conversation);
-        conversationSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/conversations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -217,7 +201,7 @@ public class ConversationResource {
     }
     //********* ajouter un message
     //http://localhost:8082/api/ajoutermessage
-    
+
     @PutMapping("/ajoutermessage")
     public ResponseEntity<Conversation> ajouterMessage(@RequestBody Message message) throws URISyntaxException {
         Conversation conversationtampon=null;
@@ -235,7 +219,6 @@ if( conversationtampon.getId()==null){
         conversationtampon.addMessages(message);
 
         Conversation result = conversationRepository.save(conversationtampon);
-        conversationSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, conversationtampon.getId().toString()))
             .body(result);

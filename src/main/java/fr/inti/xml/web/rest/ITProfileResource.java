@@ -2,7 +2,7 @@ package fr.inti.xml.web.rest;
 
 import fr.inti.xml.domain.ITProfile;
 import fr.inti.xml.repository.ITProfileRepository;
-import fr.inti.xml.repository.search.ITProfileSearchRepository;
+
 import fr.inti.xml.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+
 
 /**
  * REST controller for managing {@link fr.inti.xml.domain.ITProfile}.
@@ -39,11 +39,11 @@ public class ITProfileResource {
 
     private final ITProfileRepository iTProfileRepository;
 
-    private final ITProfileSearchRepository iTProfileSearchRepository;
 
-    public ITProfileResource(ITProfileRepository iTProfileRepository, ITProfileSearchRepository iTProfileSearchRepository) {
+
+    public ITProfileResource(ITProfileRepository iTProfileRepository) {
         this.iTProfileRepository = iTProfileRepository;
-        this.iTProfileSearchRepository = iTProfileSearchRepository;
+
     }
 
     /**
@@ -60,7 +60,6 @@ public class ITProfileResource {
             throw new BadRequestAlertException("A new iTProfile cannot already have an ID", ENTITY_NAME, "idexists");
         }
         ITProfile result = iTProfileRepository.save(iTProfile);
-        iTProfileSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/it-profiles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -82,7 +81,6 @@ public class ITProfileResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         ITProfile result = iTProfileRepository.save(iTProfile);
-        iTProfileSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, iTProfile.getId().toString()))
             .body(result);
@@ -123,22 +121,8 @@ public class ITProfileResource {
     public ResponseEntity<Void> deleteITProfile(@PathVariable String id) {
         log.debug("REST request to delete ITProfile : {}", id);
         iTProfileRepository.deleteById(id);
-        iTProfileSearchRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 
-    /**
-     * {@code SEARCH  /_search/it-profiles?query=:query} : search for the iTProfile corresponding
-     * to the query.
-     *
-     * @param query the query of the iTProfile search.
-     * @return the result of the search.
-     */
-    @GetMapping("/_search/it-profiles")
-    public List<ITProfile> searchITProfiles(@RequestParam String query) {
-        log.debug("REST request to search ITProfiles for query {}", query);
-        return StreamSupport
-            .stream(iTProfileSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
+
 }

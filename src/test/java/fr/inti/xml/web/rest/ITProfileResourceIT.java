@@ -3,7 +3,7 @@ package fr.inti.xml.web.rest;
 import fr.inti.xml.XmLApp;
 import fr.inti.xml.domain.ITProfile;
 import fr.inti.xml.repository.ITProfileRepository;
-import fr.inti.xml.repository.search.ITProfileSearchRepository;
+
 import fr.inti.xml.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +24,7 @@ import java.util.List;
 
 import static fr.inti.xml.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -57,13 +57,7 @@ public class ITProfileResourceIT {
     @Autowired
     private ITProfileRepository iTProfileRepository;
 
-    /**
-     * This repository is mocked in the fr.inti.xml.repository.search test package.
-     *
-     * @see fr.inti.xml.repository.search.ITProfileSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ITProfileSearchRepository mockITProfileSearchRepository;
+
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -84,7 +78,7 @@ public class ITProfileResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ITProfileResource iTProfileResource = new ITProfileResource(iTProfileRepository, mockITProfileSearchRepository);
+        final ITProfileResource iTProfileResource = new ITProfileResource(iTProfileRepository);
         this.restITProfileMockMvc = MockMvcBuilders.standaloneSetup(iTProfileResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -153,8 +147,6 @@ public class ITProfileResourceIT {
         assertThat(testITProfile.isGeek()).isEqualTo(DEFAULT_GEEK);
         assertThat(testITProfile.isOtaku()).isEqualTo(DEFAULT_OTAKU);
 
-        // Validate the ITProfile in Elasticsearch
-        verify(mockITProfileSearchRepository, times(1)).save(testITProfile);
     }
 
     @Test
@@ -174,8 +166,6 @@ public class ITProfileResourceIT {
         List<ITProfile> iTProfileList = iTProfileRepository.findAll();
         assertThat(iTProfileList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the ITProfile in Elasticsearch
-        verify(mockITProfileSearchRepository, times(0)).save(iTProfile);
     }
 
 
@@ -196,7 +186,7 @@ public class ITProfileResourceIT {
             .andExpect(jsonPath("$.[*].geek").value(hasItem(DEFAULT_GEEK.booleanValue())))
             .andExpect(jsonPath("$.[*].otaku").value(hasItem(DEFAULT_OTAKU.booleanValue())));
     }
-    
+
     @Test
     public void getITProfile() throws Exception {
         // Initialize the database
@@ -255,8 +245,6 @@ public class ITProfileResourceIT {
         assertThat(testITProfile.isGeek()).isEqualTo(UPDATED_GEEK);
         assertThat(testITProfile.isOtaku()).isEqualTo(UPDATED_OTAKU);
 
-        // Validate the ITProfile in Elasticsearch
-        verify(mockITProfileSearchRepository, times(1)).save(testITProfile);
     }
 
     @Test
@@ -275,8 +263,6 @@ public class ITProfileResourceIT {
         List<ITProfile> iTProfileList = iTProfileRepository.findAll();
         assertThat(iTProfileList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the ITProfile in Elasticsearch
-        verify(mockITProfileSearchRepository, times(0)).save(iTProfile);
     }
 
     @Test
@@ -295,28 +281,9 @@ public class ITProfileResourceIT {
         List<ITProfile> iTProfileList = iTProfileRepository.findAll();
         assertThat(iTProfileList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the ITProfile in Elasticsearch
-        verify(mockITProfileSearchRepository, times(1)).deleteById(iTProfile.getId());
     }
 
-    @Test
-    public void searchITProfile() throws Exception {
-        // Initialize the database
-        iTProfileRepository.save(iTProfile);
-        when(mockITProfileSearchRepository.search(queryStringQuery("id:" + iTProfile.getId())))
-            .thenReturn(Collections.singletonList(iTProfile));
-        // Search the iTProfile
-        restITProfileMockMvc.perform(get("/api/_search/it-profiles?query=id:" + iTProfile.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(iTProfile.getId())))
-            .andExpect(jsonPath("$.[*].job").value(hasItem(DEFAULT_JOB)))
-            .andExpect(jsonPath("$.[*].favLanguage").value(hasItem(DEFAULT_FAV_LANGUAGE)))
-            .andExpect(jsonPath("$.[*].favOS").value(hasItem(DEFAULT_FAV_OS)))
-            .andExpect(jsonPath("$.[*].gamer").value(hasItem(DEFAULT_GAMER.booleanValue())))
-            .andExpect(jsonPath("$.[*].geek").value(hasItem(DEFAULT_GEEK.booleanValue())))
-            .andExpect(jsonPath("$.[*].otaku").value(hasItem(DEFAULT_OTAKU.booleanValue())));
-    }
+
 
     @Test
     public void equalsVerifier() throws Exception {
