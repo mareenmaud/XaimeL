@@ -2,6 +2,9 @@
 Main page styles
 ========================================================================== */
 
+@import '../../content/css/bootstrap.css';
+@import '../../content/css/bootstrap.min.css';
+
 .Titre {
   font-family: 'Brush Script MT';
   text-shadow: 0 0 2px #00fffc, 0 0 30px #00fffc, 0px 0px 5px #00fffc, 0 0 150px #00fffc;

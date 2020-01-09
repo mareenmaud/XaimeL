@@ -1,0 +1,50 @@
+/* ==========================================================================
+Footer page styles
+========================================================================== */
+
+.foot-link {
+}
+
+#menu1 {
+  color: white;
+}
+
+.phone_logo {
+  width: 20px;
+  height: 20px;
+  background: url('../../../content/images/phone_logo.png') no-repeat center top;
+  background-size: contain;
+}
+
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (-moz-min-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+  .phone_logo {
+    background: url('../../../content/images/phone_logo.png') no-repeat center top;
+    background-size: contain;
+  }
+}
+
+.facebook_logo {
+  width: 20px;
+  height: 20px;
+  background: url('../../../content/images/facebook_logo.png') no-repeat center top;
+  background-size: contain;
+}
+
+.twitter_logo {
+  width: 20px;
+  height: 20px;
+  background: url('../../../content/images/twitter_logo.png') no-repeat center top;
+  background-size: contain;
+}
+
+.mail_logo {
+  width: 20px;
+  height: 20px;
+  background: url('../../../content/images/mail_logo.png') no-repeat center top;
+  background-size: contain;
+}
