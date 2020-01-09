@@ -1,0 +1,25 @@
+.contenu {
+  background-color: rgba(255, 255, 255, 0.24);
+  border-radius: 30px;
+}
+
+h3 {
+  font-color: black;
+  font-weight: bold;
+}
+
+h1 {
+  font-family: pixeled-webfont;
+  font-size: 150%;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 2px #141414, 1px 1px 3px #141414,
+    1px 1px 5px #141414, 1px 1px 7px #141414, 1px 1px 10px #141414, 1px 1px 12px #141414, 1px 1px 18px #141414;
+  margin-bottom: 5%;
+  color: snow;
+  margin-top: 7%;
+  text-align: center;
+}
+
+.row {
+  font-weight: bold;
+  font-color: grey;
+}

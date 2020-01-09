@@ -38,7 +38,7 @@ $(function () {
                 </ul>
             </li>
 
-            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+           <!-- <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link"  (click)="collapseNavbar()">
                     <span>
                         <fa-icon icon=""></fa-icon>
@@ -49,7 +49,7 @@ $(function () {
                         </button>
 
                 </a>
-            </li>
+            </li>-->
             <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <a class="nav-link" routerLink="conquete" (click)="collapseNavbar()">
                     <span>
@@ -64,6 +64,15 @@ $(function () {
                         <fa-icon icon=""></fa-icon>
 
                         <span>Messages</span>
+                    </span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="psy" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon=""></fa-icon>
+
+                        <span>Profil psychologique</span>
                     </span>
                 </a>
             </li>
@@ -168,7 +177,7 @@ $(function () {
             </ul>
         </li>
             <li *ngSwitchCase="false" (click)="login()" id="login">
-            <button class="btn btn-success">Connexion</button>
+            <button class="btn btn-info">Connexion</button>
             </li>
         </ul>
         </div>
