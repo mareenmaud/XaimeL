@@ -17,6 +17,8 @@ type EntityArrayResponseType = HttpResponse<IMessage[]>;
 export class MessageService {
   public resourceUrl = SERVER_API_URL + 'api/messages';
   public resourceSearchUrl = SERVER_API_URL + 'api/_search/messages';
+  public resourceUrlCreateMessage = SERVER_API_URL + 'api/createmessage';
+  public resourceUrlMessageLu = SERVER_API_URL + 'api/messagelu';
 
   constructor(protected http: HttpClient) {}
 
@@ -79,5 +81,31 @@ export class MessageService {
       });
     }
     return res;
+  }
+  //     mes services
+  // créer message
+  createMessage(
+    id: string, //  id de la conversation
+    idUser1: string,
+    idUser2: string,
+    idUserSender: string,
+    idUserRecipient: string,
+    contentMessage: string
+  ): Observable<EntityResponseType> {
+    return this.http
+      .post<IMessage>(
+        this.resourceUrlCreateMessage,
+        `"id":"${id}","idUser1":"${idUser1}","idUser2":"${idUser2}","idUserSender":"${idUserSender}","idUserRecipient":"${idUserRecipient}","contentMessage":"${contentMessage}"`,
+        { observe: 'response' }
+      )
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  //  ********** message lu
+  readMessage(message: IMessage): Observable<EntityResponseType> {
+    const copy = this.convertDateFromClient(message);
+    return this.http
+      .put<IMessage>(this.resourceUrlMessageLu, copy, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 }
