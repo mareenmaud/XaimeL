@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -13,13 +12,11 @@ import java.time.Instant;
  * A Message.
  */
 @Document(collection = "message")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "message")
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private String id;
 
     @Field("id_user_sender")

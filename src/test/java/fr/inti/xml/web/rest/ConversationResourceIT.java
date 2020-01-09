@@ -3,7 +3,7 @@ package fr.inti.xml.web.rest;
 import fr.inti.xml.XmLApp;
 import fr.inti.xml.domain.Conversation;
 import fr.inti.xml.repository.ConversationRepository;
-import fr.inti.xml.repository.search.ConversationSearchRepository;
+
 import fr.inti.xml.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +24,7 @@ import java.util.List;
 
 import static fr.inti.xml.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -45,13 +45,7 @@ public class ConversationResourceIT {
     @Autowired
     private ConversationRepository conversationRepository;
 
-    /**
-     * This repository is mocked in the fr.inti.xml.repository.search test package.
-     *
-     * @see fr.inti.xml.repository.search.ConversationSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ConversationSearchRepository mockConversationSearchRepository;
+
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -72,7 +66,7 @@ public class ConversationResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ConversationResource conversationResource = new ConversationResource(conversationRepository, mockConversationSearchRepository);
+        final ConversationResource conversationResource = new ConversationResource(conversationRepository);
         this.restConversationMockMvc = MockMvcBuilders.standaloneSetup(conversationResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -129,8 +123,6 @@ public class ConversationResourceIT {
         assertThat(testConversation.getIdUser1()).isEqualTo(DEFAULT_ID_USER_1);
         assertThat(testConversation.getIdUser2()).isEqualTo(DEFAULT_ID_USER_2);
 
-        // Validate the Conversation in Elasticsearch
-        verify(mockConversationSearchRepository, times(1)).save(testConversation);
     }
 
     @Test
@@ -150,8 +142,6 @@ public class ConversationResourceIT {
         List<Conversation> conversationList = conversationRepository.findAll();
         assertThat(conversationList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the Conversation in Elasticsearch
-        verify(mockConversationSearchRepository, times(0)).save(conversation);
     }
 
 
@@ -168,7 +158,7 @@ public class ConversationResourceIT {
             .andExpect(jsonPath("$.[*].idUser1").value(hasItem(DEFAULT_ID_USER_1)))
             .andExpect(jsonPath("$.[*].idUser2").value(hasItem(DEFAULT_ID_USER_2)));
     }
-    
+
     @Test
     public void getConversation() throws Exception {
         // Initialize the database
@@ -215,8 +205,6 @@ public class ConversationResourceIT {
         assertThat(testConversation.getIdUser1()).isEqualTo(UPDATED_ID_USER_1);
         assertThat(testConversation.getIdUser2()).isEqualTo(UPDATED_ID_USER_2);
 
-        // Validate the Conversation in Elasticsearch
-        verify(mockConversationSearchRepository, times(1)).save(testConversation);
     }
 
     @Test
@@ -235,8 +223,6 @@ public class ConversationResourceIT {
         List<Conversation> conversationList = conversationRepository.findAll();
         assertThat(conversationList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the Conversation in Elasticsearch
-        verify(mockConversationSearchRepository, times(0)).save(conversation);
     }
 
     @Test
@@ -255,24 +241,9 @@ public class ConversationResourceIT {
         List<Conversation> conversationList = conversationRepository.findAll();
         assertThat(conversationList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the Conversation in Elasticsearch
-        verify(mockConversationSearchRepository, times(1)).deleteById(conversation.getId());
     }
 
-    @Test
-    public void searchConversation() throws Exception {
-        // Initialize the database
-        conversationRepository.save(conversation);
-        when(mockConversationSearchRepository.search(queryStringQuery("id:" + conversation.getId())))
-            .thenReturn(Collections.singletonList(conversation));
-        // Search the conversation
-        restConversationMockMvc.perform(get("/api/_search/conversations?query=id:" + conversation.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(conversation.getId())))
-            .andExpect(jsonPath("$.[*].idUser1").value(hasItem(DEFAULT_ID_USER_1)))
-            .andExpect(jsonPath("$.[*].idUser2").value(hasItem(DEFAULT_ID_USER_2)));
-    }
+
 
     @Test
     public void equalsVerifier() throws Exception {

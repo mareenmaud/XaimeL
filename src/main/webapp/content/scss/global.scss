@@ -126,9 +126,7 @@ Custom alerts for notification
   .jhi-toast {
     position: fixed;
     width: 100%;
-    &.left {
-      left: 5px;
-    }
+
     &.right {
       right: 5px;
     }
@@ -202,6 +200,7 @@ body {
   background-repeat: no-repeat;
   height: 100%;
   font-family: 'Segoe UI';
+  font-color: white;
 }
 
 .container {
@@ -213,13 +212,17 @@ body {
 .d-flex justify-content-center h-100 {
   background-color: #00fffc;
 }
+.close {
+  color: white;
+  margin-left: 95%;
+}
 
 .card {
-  height: 500px;
+  height: 60%px;
   margin-top: auto;
   margin-bottom: auto;
-  width: 1000px;
-  background-color: rgb(186, 85, 211) !important;
+  width: 100%;
+  background-color: rgb(148, 0, 211) !important;
 }
 
 .social_icon span:hover {
@@ -228,7 +231,7 @@ body {
 }
 
 .card-header h3 {
-  color: black;
+  color: white;
 }
 
 .social_icon {
@@ -262,7 +265,7 @@ input:focus {
 
 .login_btn {
   color: black;
-  background-color: #ffc312;
+  background-color: #ee82ee;
   width: 100px;
 }
 
