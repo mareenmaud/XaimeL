@@ -28,6 +28,7 @@ import { StatsComponent } from './stats/stats.component';
 import { ServiceStatsService } from './service-stats.service';
 import { PageMdpPerduComponent } from './page-mdp-perdu/page-mdp-perdu.component';
 import { PageTemoignageComponent } from './page-temoignage/page-temoignage.component';
+import { PageProfilPsychoComponent } from './page-profil-psycho/page-profil-psycho.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import { PageTemoignageComponent } from './page-temoignage/page-temoignage.compo
     PageReglementComponent,
     StatsComponent,
     PageMdpPerduComponent,
-    PageTemoignageComponent
+    PageTemoignageComponent,
+    PageProfilPsychoComponent
   ],
   bootstrap: [JhiMainComponent]
 })

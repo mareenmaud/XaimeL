@@ -18,6 +18,7 @@ import { PageParametresComponent } from 'app/page-parametres/page-parametres.com
 import { PageMessagesComponent } from 'app/page-messages/page-messages.component';
 import { PageReglementComponent } from 'app/page-reglement/page-reglement.component';
 import { PageMdpPerduComponent } from 'app/page-mdp-perdu/page-mdp-perdu.component';
+import { PageProfilPsychoComponent } from 'app/page-profil-psycho/page-profil-psycho.component';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
@@ -50,6 +51,7 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
         { path: 'messages', component: PageMessagesComponent },
         { path: 'mdp', component: PageMdpPerduComponent },
         { path: 'reglement', component: PageReglementComponent },
+        { path: 'psy', component: PageProfilPsychoComponent },
         ...LAYOUT_ROUTES
       ],
       { enableTracing: DEBUG_INFO_ENABLED }
