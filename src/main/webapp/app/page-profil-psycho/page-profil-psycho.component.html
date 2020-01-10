@@ -79,6 +79,7 @@
                 </div>
         </div>
     </div>
+    <br>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h3>Perception dominante</h3>
@@ -153,5 +154,146 @@
                 </div>
         </div>
     </div>
+    <br>
+    <div class="row justify-content-center">
+    <div class="col-md-8">
+        <h3>Jugement dominant</h3>
+    </div>
+</div>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
+                <div class="form-group">
+                    <h6>Je me demande surtout...</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            si c'est bien vrai
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            si c'est bien important
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            les deux
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6>Le monde ne pas vivre...</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            sans raison
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            sans amour
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            les deux
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6>La bonne décision...</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            est factuelle et logique
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            doit faire consensus
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            les deux
+                        </label>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h3>Fonction dominante</h3>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
+                <div class="form-group">
+                    <h6>Mon bureau est généralement...</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            bien rangé
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            en désordre
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6>Je préfère les situations...</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            contrôlées et maîtrisées
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            souples et flexibles
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6>J'aime...</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            que les choses restent bien structurées
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            m'adapter à des expériences imprévues
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            les deux
+                        </label>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <br><br>
+    <button class="btn btn-info">Soumettre mon test</button>
+    <br><br>
 </div>
 
